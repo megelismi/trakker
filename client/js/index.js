@@ -16,7 +16,6 @@ const history = createHistory();
 
 const routes = (
   <Provider store={store}>
-    <ConnectedRouter history={history}>
       <Router>
         <div>
           <Route exact path="/" component={Home} />
@@ -24,7 +23,6 @@ const routes = (
           <Route path="/login" component={Login} />
         </div>
       </Router>
-    </ConnectedRouter>
   </Provider>
 );
 

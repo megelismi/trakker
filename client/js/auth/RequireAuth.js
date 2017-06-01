@@ -12,7 +12,6 @@ export default function (Component) {
     componentDidMount() {
       if (!this.props.currentUser) {
         console.log('no user, rerouting');
-        store.dispatch(push('login'));
       }
     }
 
