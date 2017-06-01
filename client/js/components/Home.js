@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Login from './Login';
+import Flights from './Flights';
 
 class Home extends Component {
   render() {
     return (
       <div>
-        <ul>
-          <li><Link to="/flights">Flights Page</Link></li>
-        </ul>
+        {this.props.currentUser ? <Flights /> : <Login />}
       </div>
     );
   }
 }
 
-export default Home;
+const mapStateToProps = state => ({
+  currentUser: state.currentUser
+});
+
+export default connect(mapStateToProps)(Home);
 

@@ -1,15 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import Cookies from 'js-cookie';
-
+import  Login  from '../components/Login';
+// import { Redirect } from 'react-router';
+import store from '../store';
+import { push } from 'react-router-redux';
+// import Cookies from 'js-cookie';
 
 export default function (Component) {
   class RequiresAuth extends React.Component {
 
     componentDidMount() {
       if (!this.props.currentUser) {
-        <Redirect to='/login' />;
+        console.log('no user, rerouting');
+        store.dispatch(push('login'));
       }
     }
 
@@ -17,7 +20,7 @@ export default function (Component) {
       if (this.props.currentUser) {
         return <Component {...this.props} />;
       }
-        return <div />;
+        return <Login />;
     }
   }
 
@@ -26,4 +29,4 @@ export default function (Component) {
   });
 
   return connect(mapStateToProps)(RequiresAuth);
-};
+}
