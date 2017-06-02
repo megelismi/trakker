@@ -13,7 +13,7 @@ const MongoClient = mongodb.MongoClient;
 mongoose.Promise = global.Promise;
 
 const HOST = process.env.HOST;
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
 console.log(`Server running in ${process.env.NODE_ENV} mode`);
 
@@ -22,14 +22,32 @@ const jsonParser = bodyParser.json();
 
 app.use(express.static(process.env.CLIENT_PATH));
 
-app.post('/signup', jsonParser, (req, res) => {
-	const { name, userName, email, password } = req.body;
-	User.create({ name, userName, email, password }, (err, data) => {
+app.post('/fblogin', jsonParser, (req, res) => {
+	const { email, name, id, gender } = req.body.profile;
+	const { accessToken } = req.body.tokenDetail;
+
+	//see if the user already exists in the database
+
+	User.find({ email }, (err, existingUser) => {
 		if (err) {
 			console.error(err);
-			res.send(err);
+			return res.send(err);
 		}
-		res.status(200).json(data);
+		//if they do exist, send back their info
+
+		if (existingUser.length) {
+			return res.status(200).json(existingUser[0]);
+		}
+
+		//if they don't exist, create an account for them then send back their info
+
+		User.create({ name, email, _id: id, gender, accessToken }, (err, newUser) => {
+			if (err) {
+				console.error(err);
+				return res.send(err);
+			}
+			return res.status(200).json(newUser);
+		});
 	});
 });
 

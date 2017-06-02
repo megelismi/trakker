@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FacebookProvider, { Login } from 'react-facebook';
+import * as postRequests from '../actions/postRequests';
 
 class Home extends Component {
-  handleResponse(data) {
-    console.log(data);
+
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  handleResponse(user) {
+    console.log(user);
+    this.props.dispatch(postRequests.login(user));
   }
 
   handleError(error) {
+    console.log(error);
     this.setState({ error });
   }
 
@@ -16,8 +25,8 @@ class Home extends Component {
       <FacebookProvider appId="1382077371899696">
         <Login
           scope="email"
-          onResponse={this.handleResponse}
-          onError={this.handleError}
+          onResponse={this.handleResponse.bind(this)}
+          onError={this.handleError.bind(this)}
         >
           <span>Login via Facebook</span>
         </Login>
