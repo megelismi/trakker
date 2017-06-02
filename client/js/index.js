@@ -7,9 +7,9 @@ import { HashRouter as Router, Route } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import RequiresAuth from './auth/RequireAuth';
 import store from './store';
-import Home from './components/Home';
-import Flights from './components/Flights';
-import Login from './components/Login';
+import HomePage from './components/HomePage';
+import Flights from './components/FlightsPage';
+import LoginBox from './components/LoginBox';
 
 const history = createHistory();
 
@@ -17,9 +17,9 @@ const routes = (
   <Provider store={store}>
     <Router>
       <div>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={HomePage} />
         <Route path="/flights" component={RequiresAuth(Flights)} />
-        <Route path="/login" component={Login} />
+        <Route path="/login" component={LoginBox} />
       </div>
     </Router>
   </Provider>

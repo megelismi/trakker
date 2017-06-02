@@ -1,6 +1,6 @@
 import * as postResults from './postResults.js';
 
-export const login = user => dispatch => {
+export const fbLogin = user => dispatch => {
     const url = '/fblogin';
     return fetch(url, {
       method: 'post',

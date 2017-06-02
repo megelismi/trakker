@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Flights extends Component {
+class FlightsPage extends Component {
   render() {
     return (
       <h1>Yay! You're in!</h1>
@@ -8,5 +8,5 @@ class Flights extends Component {
   }
 }
 
-export default Flights;
+export default FlightsPage;
 
