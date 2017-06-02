@@ -4,7 +4,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom';
-import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import RequiresAuth from './auth/RequireAuth';
 import store from './store';
@@ -16,13 +15,13 @@ const history = createHistory();
 
 const routes = (
   <Provider store={store}>
-      <Router>
-        <div>
-          <Route exact path="/" component={Home} />
-          <Route path="/flights" component={RequiresAuth(Flights)} />
-          <Route path="/login" component={Login} />
-        </div>
-      </Router>
+    <Router>
+      <div>
+        <Route exact path="/" component={Home} />
+        <Route path="/flights" component={RequiresAuth(Flights)} />
+        <Route path="/login" component={Login} />
+      </div>
+    </Router>
   </Provider>
 );
 
