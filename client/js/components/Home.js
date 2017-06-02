@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import FacebookLogin from 'react-facebook-login';
+import FacebookProvider, { Login } from 'react-facebook';
 
 class Home extends Component {
+  handleResponse(data) {
+    console.log(data);
+  }
 
-  responseFacebook(response) {
-    console.log(response);
+  handleError(error) {
+    this.setState({ error });
   }
 
   render() {
     return (
-      <div>
-        <FacebookLogin
-          appId="1807308099584234"
-          autoLoad={true}
-          size="small"
-          fields="name,email,picture"
-          scope="public_profile,user_friends,user_actions.books"
-          callback={this.responseFacebook}
-        />
-      </div>
+      <FacebookProvider appId="1382077371899696">
+        <Login
+          scope="email"
+          onResponse={this.handleResponse}
+          onError={this.handleError}
+        >
+          <span>Login via Facebook</span>
+        </Login>
+      </FacebookProvider>
     );
   }
 }
@@ -30,4 +31,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(Home);
-
