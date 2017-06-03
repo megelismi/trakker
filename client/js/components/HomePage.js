@@ -4,8 +4,6 @@ import SignUpBox from './SignUpBox';
 
 class HomePage extends Component {
 
-
-  //should I put the appId in an env variable?
   render() {
     return (
       <SignUpBox />

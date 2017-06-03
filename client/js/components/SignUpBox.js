@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import FacebookProvider, { Login } from 'react-facebook';
 import { connect } from 'react-redux';
+import FacebookLogin from './FacebookLogin';
 import * as postRequests from '../actions/postRequests';
 import * as postResults from '../actions/postResults';
 
@@ -28,19 +28,11 @@ class SignUpBox extends Component {
 
   render() {
     return (
-      <div className="sign-up-form-container">
-        <FacebookProvider appId="1382077371899696">
-          <Login
-            scope="email"
-            onResponse={this.handleFbResponse.bind(this)}
-            onError={this.handleFbError.bind(this)}
-          >
-          <span>Login via Facebook</span>
-          </Login>
-        </FacebookProvider>
-        <form className="signup-form" onSubmit={this.sendSignUpInfo.bind(this)}>
+      <div className="sign-up-container">
+        <FacebookLogin />
+        <form className="sign-up-form" onSubmit={this.sendSignUpInfo.bind(this)}>
           <input
-            className="sign-in-up-modal-input"
+            className="sign-in-up-input"
             type="text"
             name="firstname"
             placeholder="First name"
@@ -50,7 +42,7 @@ class SignUpBox extends Component {
             }}
           />
           <input
-            className="sign-in-up-modal-input"
+            className="sign-in-up-input"
             type="text"
             name="lastname"
             placeholder="Last name"
@@ -60,7 +52,7 @@ class SignUpBox extends Component {
             }}
           />
           <input
-            className="sign-in-up-modal-input"
+            className="sign-in-up-input"
             type="text"
             name="email"
             placeholder="Email"
@@ -70,7 +62,7 @@ class SignUpBox extends Component {
             }}
           />
           <input
-            className="sign-in-up-modal-input"
+            className="sign-in-up-input"
             type="password"
             name="password"
             placeholder="Password"
@@ -80,7 +72,7 @@ class SignUpBox extends Component {
             }}
           />
           <input
-            className="sign-in-up-modal-input"
+            className="sign-in-up-input"
             type="password"
             name="confirm_password"
             placeholder="Confirm Password"
