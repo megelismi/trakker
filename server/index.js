@@ -8,6 +8,7 @@ import dotenv from 'dotenv';
 // import { Strategy } from 'passport-http-bearer';
 import bcrypt from 'bcryptjs';
 import uuidV1 from 'uuid/v1';
+import shortid from 'shortid';
 import User from './models/users';
 import * as userValidity from './handlers/signUpValidity';
 
@@ -45,20 +46,18 @@ app.post('/fblogin', jsonParser, (req, res) => {
 	const { accessToken } = req.body.tokenDetail;
 
 	//see if the user already exists in the database
-
 	User.find({ email }, (err, existingUser) => {
 		if (err) {
 			console.error(err);
 			return res.send(err);
 		}
-		//if they do, send back their info
 
+		//if they do, send back their info
 		if (existingUser.length) {
 			return res.status(200).json(existingUser[0]);
 		}
 
 		//if they don't, create an account then send back their info
-
 		User.create({ name, email, _id: id, accessToken }, (err, newUser) => {
 			if (err) {
 				console.error(err);
@@ -71,19 +70,40 @@ app.post('/fblogin', jsonParser, (req, res) => {
 
 app.post('/signup', jsonParser, (req, res) => {
 	const user = req.body;
-	const { name, email, password, confirmedPassword } = req.body;
+	const { name, email, password } = req.body;
 	const passwordToSave = bcrypt.hashSync(password, salt);
-  const token = uuidV1();
   const userValidityCheck = userValidity.signUpValidity(user);
 
-  console.log('passwordToSave', passwordToSave, 'token', token, 'userValidityCheck', userValidityCheck);
-
+  //make sure user info that was submitted is valid
   if (userValidityCheck.isInvalid) {
     return res.status(userValidityCheck.status).json({ message: userValidityCheck.message });
   }
-	res.status(200).json({});
-});
 
+  User.find({ email }, (err, existingUser) => {
+		if (err) {
+			console.error(err);
+			return res.send(err);
+		}
+
+		//make sure email is not already in the db
+    if (existingUser.length) {
+      return res.status(409)
+       .json({ message: 'That email address is already on file. Try signing in.' });
+    }
+
+    //if all checks are passed, create an account and send back user info
+		User.create(
+			{ name, email, _id: shortid.generate(), password: passwordToSave, accessToken: uuidV1() },
+			(err, newUser) => {
+			if (err) {
+				console.error(err);
+				return res.send(err);
+			}
+			const { name, id, email, accessToken } = newUser;
+			return res.status(200).json({ name, id, email, accessToken });
+		});
+  });
+});
 
 function runServer() {
 	const databaseUri = process.env.DATABASE_URI || global.databaseUri;

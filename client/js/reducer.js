@@ -12,8 +12,9 @@ const initialState = (state = {
       });
 
     case postResults.APP_SIGN_UP_SUCCESS:
+    console.log('currentUser', action.currentUser);
       return Object.assign({}, state, {
-        currentUser: action.user,
+        currentUser: action.currentUser,
       });
 
     case postResults.FB_LOGIN_ERROR:
