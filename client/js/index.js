@@ -8,18 +8,20 @@ import createHistory from 'history/createBrowserHistory';
 import RequiresAuth from './auth/RequireAuth';
 import store from './store';
 import HomePage from './components/HomePage';
-import Flights from './components/FlightsPage';
-import LoginBox from './components/LoginBox';
+import FlightsPage from './components/FlightsPage';
+import LoginPage from './components/LoginPage';
+import SignUpPage from './components/SignUpPage';
 
-const history = createHistory();
+// const history = createHistory();
 
 const routes = (
   <Provider store={store}>
     <Router>
       <div>
         <Route exact path="/" component={HomePage} />
-        <Route path="/flights" component={RequiresAuth(Flights)} />
-        <Route path="/login" component={LoginBox} />
+        <Route path="/flights" component={RequiresAuth(FlightsPage)} />
+        <Route path="/signup" component={SignUpPage} />
+        <Route path="/login" component={LoginPage} />
       </div>
     </Router>
   </Provider>

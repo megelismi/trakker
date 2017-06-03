@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import SignUpBox from './SignUpBox';
+import BackgroundVideo from 'react-background-video-player';
 
 class HomePage extends Component {
 
   render() {
+
     return (
-      <SignUpBox />
+      <div className="homepage-container">
+        <BackgroundVideo className="homepage-video" src='./assets/10K_Feet.mp4' containerWidth={100} containerHeight={100} />
+      </div>
     );
   }
 }

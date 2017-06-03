@@ -94,6 +94,7 @@
     "passport": "^0.3.2",
     "passport-http-bearer": "^1.0.1",
     "react": "^15.5.4",
+    "react-background-video-player": "^0.2.1",
     "react-dom": "^15.5.4",
     "react-facebook": "^4.0.12",
     "react-facebook-login": "^3.6.1",
