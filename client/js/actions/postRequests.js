@@ -1,4 +1,27 @@
+import Cookies from 'js-cookie';
 import * as postResults from './postResults.js';
+
+export const appLogin = user => dispatch => {
+    const url = '/login';
+    return fetch(url, {
+      method: 'post',
+      headers: {
+        'Content-type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify(user)
+    })
+    .then(res => {
+      if (!res.ok) {
+        return res.json()
+        .then(error => dispatch(postResults.appLoginError(error.message)));
+      }
+      return res.json()
+      .then(currentUser => {
+        Cookies.set('savori_token', currentUser.accessToken);
+        dispatch(postResults.appLoginSuccess(currentUser));
+      });
+    });
+  };
 
 export const appSignUp = user => dispatch => {
     const url = '/signup';
@@ -16,6 +39,7 @@ export const appSignUp = user => dispatch => {
       }
         return res.json()
         .then(currentUser => {
+          Cookies.set('savori_token', currentUser.accessToken);
           dispatch(postResults.appSignUpSuccess(currentUser));
         });
     });
@@ -38,6 +62,7 @@ export const fbLogin = user => dispatch => {
       }
         return res.json()
         .then(currentUser => {
+          Cookies.set('savori_token', currentUser.accessToken);
           dispatch(postResults.fbLoginSuccess(currentUser));
         });
     });

@@ -43,9 +43,15 @@ class LoginBox extends Component {
             value="Sign In"
           />
         </form>
+        {this.props.appHasAuthError ? this.props.authError : null}
       </div>
     );
   }
 }
 
-export default connect()(LoginBox);
+const mapStateToProps = state => ({
+  appHasAuthError: state.appHasAuthError,
+  authError: state.authError
+});
+
+export default connect(mapStateToProps)(LoginBox);

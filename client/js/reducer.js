@@ -5,15 +5,29 @@ const initialState = (state = {
   }, action) => {
     switch (action.type) {
 
+    case postResults.APP_LOGIN_ERROR:
+      return Object.assign({}, state, {
+        appHasAuthError: true,
+        authError: action.error
+      });
+
+    case postResults.APP_LOGIN_SUCCESS:
+      return Object.assign({}, state, {
+        appHasAuthError: false,
+        authError: null,
+        currentUser: action.currentUser,
+      });
+
     case postResults.APP_SIGN_UP_ERROR:
       return Object.assign({}, state, {
-        userError: true,
-        appSignUpError: action.error
+        appHasAuthError: true,
+        authError: action.error
       });
 
     case postResults.APP_SIGN_UP_SUCCESS:
-    console.log('currentUser', action.currentUser);
       return Object.assign({}, state, {
+        appHasAuthError: false,
+        authError: null,
         currentUser: action.currentUser,
       });
 

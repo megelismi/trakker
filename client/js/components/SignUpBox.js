@@ -83,9 +83,15 @@ class SignUpBox extends Component {
           />
           <input className="accent-button" type="submit" value="Sign Up" />
         </form>
+        {this.props.appHasAuthError ? this.props.authError : null}
       </div>
     );
   }
 }
 
-export default connect()(SignUpBox);
+const mapStateToProps = state => ({
+  appHasAuthError: state.appHasAuthError,
+  authError: state.authError
+});
+
+export default connect(mapStateToProps)(SignUpBox);

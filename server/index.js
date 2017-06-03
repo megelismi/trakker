@@ -10,10 +10,11 @@ import bcrypt from 'bcryptjs';
 import uuidV1 from 'uuid/v1';
 import shortid from 'shortid';
 import User from './models/users';
-import * as userValidity from './handlers/signUpValidity';
+import * as userValidity from './handlers/userValidity';
+import verifyPassword from './handlers/verifyPassword';
 
-const salt = bcrypt.genSaltSync(10);
 dotenv.config({ silent: true });
+const salt = bcrypt.genSaltSync(10);
 
 // const MongoClient = mongodb.MongoClient;
 
@@ -68,6 +69,34 @@ app.post('/fblogin', jsonParser, (req, res) => {
 	});
 });
 
+app.post('/login', jsonParser, (req, res) => {
+  const { email, password } = req.body;
+
+  if (!userValidity.allFormFieldsFilledIn(req.body)) {
+    return res.status(422).json({ message: 'All fields are required.' });
+  }
+    User.find({ email }, (err, existingUser) => {
+			if (err) {
+				console.error(err);
+				return res.send(err);
+			}
+
+			//make sure email exists in db
+			if (!existingUser.length) {
+				return res.status(401).json({ message: 'The email address you entered is not registered with us.' });
+			}
+
+			//verify that password is correct, if so send back user info
+			if (verifyPassword(password, existingUser[0].salt, existingUser[0].password)) {
+				const { name, id, email, accessToken } = existingUser[0];
+				return res.status(200).json({ name, id, email, accessToken });
+			}
+
+			return res.status(401).json({ message: 'The password you entered is incorrect.' });
+    });
+  });
+
+
 app.post('/signup', jsonParser, (req, res) => {
 	const user = req.body;
 	const { name, email, password } = req.body;
@@ -93,8 +122,13 @@ app.post('/signup', jsonParser, (req, res) => {
 
     //if all checks are passed, create an account and send back user info
 		User.create(
-			{ name, email, _id: shortid.generate(), password: passwordToSave, accessToken: uuidV1() },
-			(err, newUser) => {
+			{ name,
+				email,
+				salt,
+				_id: shortid.generate(),
+				password: passwordToSave,
+				accessToken: uuidV1()
+			}, (err, newUser) => {
 			if (err) {
 				console.error(err);
 				return res.send(err);
