@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FacebookProvider, { Login } from 'react-facebook';
+import { connect } from 'react-redux';
 import * as postRequests from '../actions/postRequests';
 import * as postResults from '../actions/postResults';
 
@@ -15,7 +16,14 @@ class SignUpBox extends Component {
 
   sendSignUpInfo(e) {
     e.preventDefault();
-    console.log(this.lastName.value, this.firstName.value);
+    const firstName = this.firstName.value.trim();
+    const lastName = this.lastName.value.trim();
+    this.props.dispatch(postRequests.appSignUp({
+      name: `${firstName} ${lastName}`,
+      email: this.email.value.trim(),
+      password: this.password.value.trim(),
+      confirmedPassword: this.confirmedPassword.value.trim()
+    }));
   }
 
   render() {
@@ -88,4 +96,4 @@ class SignUpBox extends Component {
   }
 }
 
-export default SignUpBox;
+export default connect()(SignUpBox);

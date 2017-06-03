@@ -5,6 +5,17 @@ const initialState = (state = {
   }, action) => {
     switch (action.type) {
 
+    case postResults.APP_SIGN_UP_ERROR:
+      return Object.assign({}, state, {
+        userError: true,
+        appSignUpError: action.error
+      });
+
+    case postResults.APP_SIGN_UP_SUCCESS:
+      return Object.assign({}, state, {
+        currentUser: action.user,
+      });
+
     case postResults.FB_LOGIN_ERROR:
       return Object.assign({}, state, { fbLoginError: action.error });
 

@@ -82,6 +82,7 @@
     "webpack": "^1.13.1"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "dotenv": "^4.0.0",
     "express": "^4.14.0",
@@ -90,6 +91,8 @@
     "js-cookies": "^1.0.4",
     "mongodb": "^2.2.27",
     "mongoose": "^4.10.4",
+    "passport": "^0.3.2",
+    "passport-http-bearer": "^1.0.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-facebook": "^4.0.12",
@@ -99,6 +102,7 @@
     "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "uuid": "^3.0.1"
   }
 }
