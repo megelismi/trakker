@@ -12,3 +12,6 @@ script:
 - npm run build:server:production
 - npm run build:client:production
 - npm test
+deploy:
+  provider: heroku
+  app: flight-trakker
