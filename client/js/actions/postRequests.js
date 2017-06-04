@@ -35,12 +35,12 @@ export const appSignUp = user => dispatch => {
     .then(res => {
       if (!res.ok) {
         return res.json()
-        .then(error => dispatch(postResults.appSignUpError(error.message)));
+        .then(error => dispatch(postResults.appLoginError(error.message)));
       }
         return res.json()
         .then(currentUser => {
           Cookies.set('savori_token', currentUser.accessToken);
-          dispatch(postResults.appSignUpSuccess(currentUser));
+          dispatch(postResults.appLoginSuccess(currentUser));
         });
     });
   };

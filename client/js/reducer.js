@@ -18,19 +18,6 @@ const initialState = (state = {
         currentUser: action.currentUser,
       });
 
-    case postResults.APP_SIGN_UP_ERROR:
-      return Object.assign({}, state, {
-        appHasAuthError: true,
-        authError: action.error
-      });
-
-    case postResults.APP_SIGN_UP_SUCCESS:
-      return Object.assign({}, state, {
-        appHasAuthError: false,
-        authError: null,
-        currentUser: action.currentUser,
-      });
-
     case postResults.FB_LOGIN_ERROR:
       return Object.assign({}, state, { fbLoginError: action.error });
 

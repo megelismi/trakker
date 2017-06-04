@@ -42,6 +42,23 @@ app.use(express.static(process.env.CLIENT_PATH));
 //   })
 // ));
 
+//on refresh see if user was logged in, if so, log them back in
+app.get('/find/cookie/:accessToken', (req, res) => {
+  const { accessToken } = req.params;
+  User.find({ accessToken }, (err, existingUser) => {
+    if (err) {
+      console.error(err);
+      return res.send(err);
+    }
+    if (existingUser.length) {
+      const { name, id, email, accessToken } = existingUser[0];
+      return res.status(200).json({ name, id, email, accessToken });
+    }
+      return res.status(404).json({ message: 'User not found' });
+  });
+});
+
+
 app.post('/fblogin', jsonParser, (req, res) => {
 	const { email, name, id } = req.body.profile;
 	const { accessToken } = req.body.tokenDetail;

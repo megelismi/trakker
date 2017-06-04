@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom';
 // import createHistory from 'history/createBrowserHistory';
 import RequiresAuth from './auth/RequireAuth';
+// import RememberUser from './auth/RememberUser';
 import store from './store';
 import HomePagePicture from './components/HomePagePicture';
 // import HomePageVideo from './components/HomePageVideo';
@@ -20,7 +21,7 @@ const routes = (
     <Router>
       <div>
         <Route exact path="/" component={HomePagePicture} />
-        <Route path="/flights" component={FlightsPage} />
+        <Route path="/flights" component={RequiresAuth(FlightsPage)} />
         <Route path="/signup" component={SignUpPage} />
         <Route path="/login" component={LoginPage} />
       </div>
