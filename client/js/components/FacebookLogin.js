@@ -7,7 +7,10 @@ import * as postResults from '../actions/postResults';
 class FacebookLogin extends Component {
 
   handleFbResponse(user) {
-    this.props.dispatch(postRequests.fbLogin(user));
+    this.props.dispatch(postRequests.fbLogin(user))
+    .then(() => {
+      this.props.history.push('/flights');
+    });
   }
 
   handleFbError(error) {

@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 // import mongodb from 'mongodb';
 // import passport from 'passport';
 // import { Strategy } from 'passport-http-bearer';
+import http from 'http';
 import bcrypt from 'bcryptjs';
 import uuidV1 from 'uuid/v1';
 import shortid from 'shortid';
@@ -41,6 +42,52 @@ app.use(express.static(process.env.CLIENT_PATH));
 //     return callback(err);
 //   })
 // ));
+
+const appId = 'b9aa60b9';
+const appKey = '0b428882b9ae3e2d323ef4a1ab0d6463';
+const flightId =
+
+// app.get('/flight/:flightNumber', (req, res) => {
+//   const flightNumber = { req.params };
+//   return http.get()
+// });
+
+//  return http.get({
+//         host: 'personatestuser.org',
+//         path: '/email'
+//     }, function(response) {
+//         // Continuously update stream with data
+//         var body = '';
+//         response.on('data', function(d) {
+//             body += d;
+//         });
+//         response.on('end', function() {
+
+//             // Data reception is done, do whatever with it!
+//             var parsed = JSON.parse(body);
+//             callback({
+//                 email: parsed.email,
+//                 password: parsed.pass
+//             });
+//         });
+//     });
+
+//on refresh see if user was logged in, if so, log them back in
+app.get('/find/cookie/:accessToken', (req, res) => {
+  const { accessToken } = req.params;
+  User.find({ accessToken }, (err, existingUser) => {
+    if (err) {
+      console.error(err);
+      return res.send(err);
+    }
+    if (existingUser.length) {
+      const { name, id, email, accessToken } = existingUser[0];
+      return res.status(200).json({ name, id, email, accessToken });
+    }
+      return res.status(404).json({ message: 'User not found' });
+  });
+});
+
 
 app.post('/fblogin', jsonParser, (req, res) => {
 	const { email, name, id } = req.body.profile;

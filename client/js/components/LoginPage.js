@@ -9,14 +9,16 @@ class LoginPage extends Component {
     e.preventDefault();
     this.props.dispatch(postRequests.appLogin(
       { email: this.email.value, password: this.password.value }
-    ));
+    )).then(() => {
+      this.props.history.push('/flights');
+    });
   }
 
   render() {
     return (
       <div className="login-container">
         <h2 className="sign-up-login-header">Welcome Back!</h2>
-        <FacebookLogin />
+        <FacebookLogin history={this.props.history} />
         <p className="email-option">or login with email</p>
         <form className="login-form" onSubmit={this.sendSignInInfo.bind(this)}>
           <input
