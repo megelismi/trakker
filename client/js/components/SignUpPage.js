@@ -23,14 +23,17 @@ class SignUpBox extends Component {
       email: this.email.value.trim(),
       password: this.password.value.trim(),
       confirmedPassword: this.confirmedPassword.value.trim()
-    }));
+    }))
+    .then(() => {
+      this.props.history.push('/flights');
+    });
   }
 
   render() {
     return (
       <div className="sign-up-container">
         <h2 className="sign-up-login-header">Sign Up</h2>
-        <FacebookLogin />
+        <FacebookLogin history={this.props.history}/>
         <p className="email-option">or sign up with email</p>
         <form className="sign-up-form" onSubmit={this.sendSignUpInfo.bind(this)}>
           <input

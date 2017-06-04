@@ -1,5 +1,8 @@
 import Cookies from 'js-cookie';
+import createHistory from 'history/createBrowserHistory';
 import * as postResults from './postResults.js';
+
+const history = createHistory();
 
 export const appLogin = user => dispatch => {
     const url = '/login';

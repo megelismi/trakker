@@ -4,17 +4,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom';
-// import createHistory from 'history/createBrowserHistory';
 import RequiresAuth from './auth/RequireAuth';
-// import RememberUser from './auth/RememberUser';
 import store from './store';
 import HomePagePicture from './components/HomePagePicture';
 // import HomePageVideo from './components/HomePageVideo';
 import FlightsPage from './components/FlightsPage';
 import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
-
-// const history = createHistory();
 
 const routes = (
   <Provider store={store}>
