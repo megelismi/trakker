@@ -29,7 +29,9 @@ class SignUpBox extends Component {
   render() {
     return (
       <div className="sign-up-container">
+        <h2 className="sign-up-login-header">Sign Up</h2>
         <FacebookLogin />
+        <p className="email-option">or sign up with email</p>
         <form className="sign-up-form" onSubmit={this.sendSignUpInfo.bind(this)}>
           <input
             className="sign-in-up-input"

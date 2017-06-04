@@ -15,7 +15,9 @@ class LoginPage extends Component {
   render() {
     return (
       <div className="login-container">
+        <h2 className="sign-up-login-header">Welcome Back!</h2>
         <FacebookLogin />
+        <p className="email-option">or login with email</p>
         <form className="login-form" onSubmit={this.sendSignInInfo.bind(this)}>
           <input
             className="sign-in-up-input"
@@ -40,7 +42,7 @@ class LoginPage extends Component {
           <input
             className="submit-button"
             type="submit"
-            value="LOGIN"
+            value="Login"
           />
         </form>
         <span className="auth-error">{this.props.appHasAuthError ? this.props.authError : null}</span>

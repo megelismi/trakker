@@ -22,7 +22,9 @@ class FacebookLogin extends Component {
           onResponse={this.handleFbResponse.bind(this)}
           onError={this.handleFbError.bind(this)}
         >
-        <span>Login via Facebook</span>
+        <button className="facebook-login-button">
+          Login with Facebook
+        </button>
         </Login>
       </FacebookProvider>
     );

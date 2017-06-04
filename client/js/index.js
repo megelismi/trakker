@@ -20,7 +20,7 @@ const routes = (
     <Router>
       <div>
         <Route exact path="/" component={HomePagePicture} />
-        <Route path="/flights" component={RequiresAuth(FlightsPage)} />
+        <Route path="/flights" component={FlightsPage} />
         <Route path="/signup" component={SignUpPage} />
         <Route path="/login" component={LoginPage} />
       </div>
