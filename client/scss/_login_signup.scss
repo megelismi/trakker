@@ -1,0 +1,48 @@
+$teal: #06D6A0;
+
+.auth-error {
+  color: red;
+  font-size: 12px;
+}
+
+.login-container, .sign-up-container {
+  width: 40%;
+  margin: 0 auto;
+  text-align: center;
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
+  border: 1px solid lightgray;
+  padding: 20px 0;
+  background-color: white;
+}
+
+.sign-in-up-input {
+  display: block;
+  margin: 20px auto;
+  margin: 20px auto;
+  width: 250px;
+  height: 20px;
+  font-size: 14px;
+  padding: 3px;
+}
+
+.sign-up-pw-req {
+  color: gray;
+  font-size: 12px;
+  margin: 10px;
+  text-align: center;
+}
+
+.submit-button {
+  width: 100px;
+  background-color: transparent;
+  border: 1px solid $teal;
+  color: black;
+  font-size: 12px;
+  padding: 5px;
+  margin-bottom: 20px;
+}
+
+

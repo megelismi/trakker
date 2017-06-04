@@ -81,9 +81,12 @@ class SignUpBox extends Component {
               return this.confirmedPassword;
             }}
           />
-          <input className="accent-button" type="submit" value="Sign Up" />
+          <input className="submit-button" type="submit" value="Sign Up" />
         </form>
-        {this.props.appHasAuthError ? this.props.authError : null}
+         <div className="sign-up-pw-req">
+          Passwords must contain 6 characters, including 1 number and 1 symbol.
+        </div>
+        <span className="auth-error">{this.props.appHasAuthError ? this.props.authError : null}</span>
       </div>
     );
   }

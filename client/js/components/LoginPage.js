@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import FacebookLogin from './FacebookLogin';
 import * as postRequests from '../actions/postRequests';
 
-class LoginBox extends Component {
+class LoginPage extends Component {
 
   sendSignInInfo(e) {
     e.preventDefault();
@@ -16,7 +16,7 @@ class LoginBox extends Component {
     return (
       <div className="login-container">
         <FacebookLogin />
-        <form className="signin-form" onSubmit={this.sendSignInInfo.bind(this)}>
+        <form className="login-form" onSubmit={this.sendSignInInfo.bind(this)}>
           <input
             className="sign-in-up-input"
             type="text"
@@ -38,12 +38,12 @@ class LoginBox extends Component {
             }}
           />
           <input
-            className="accent-button"
+            className="submit-button"
             type="submit"
-            value="Sign In"
+            value="LOGIN"
           />
         </form>
-        {this.props.appHasAuthError ? this.props.authError : null}
+        <span className="auth-error">{this.props.appHasAuthError ? this.props.authError : null}</span>
       </div>
     );
   }
@@ -54,4 +54,4 @@ const mapStateToProps = state => ({
   authError: state.authError
 });
 
-export default connect(mapStateToProps)(LoginBox);
+export default connect(mapStateToProps)(LoginPage);
