@@ -16,13 +16,13 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div className="login-container">
-        <h2 className="sign-up-login-header">Welcome Back!</h2>
+      <div className="app-content-container">
+        <h2 className="app-content-header">Welcome Back!</h2>
         <FacebookLogin history={this.props.history} />
         <p className="email-option">or login with email</p>
         <form className="login-form" onSubmit={this.sendSignInInfo.bind(this)}>
           <input
-            className="sign-in-up-input"
+            className="app-input"
             type="text"
             name="email"
             placeholder="Email"
@@ -32,7 +32,7 @@ class LoginPage extends Component {
             }}
           />
           <input
-            className="sign-in-up-input"
+            className="app-input"
             type="password"
             name="lastname"
             placeholder="Password"

@@ -1,3 +1,4 @@
+import * as getResults from './actions/getResults';
 import * as postResults from './actions/postResults';
 
 const initialState = (state = {
@@ -23,6 +24,9 @@ const initialState = (state = {
 
     case postResults.FB_LOGIN_SUCCESS:
       return Object.assign({}, state, { currentUser: action.currentUser });
+
+    case getResults.GET_FLIGHT_DETAILS_SUCCESS:
+      return Object.assign({}, state, { flightDetails: action.details });
 
     default:
       return state;

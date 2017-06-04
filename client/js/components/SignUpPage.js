@@ -31,13 +31,13 @@ class SignUpBox extends Component {
 
   render() {
     return (
-      <div className="sign-up-container">
-        <h2 className="sign-up-login-header">Sign Up</h2>
+      <div className="app-content-container">
+        <h2 className="app-content-header">Sign Up</h2>
         <FacebookLogin history={this.props.history}/>
         <p className="email-option">or sign up with email</p>
         <form className="sign-up-form" onSubmit={this.sendSignUpInfo.bind(this)}>
           <input
-            className="sign-in-up-input"
+            className="app-input"
             type="text"
             name="firstname"
             placeholder="First name"
@@ -47,7 +47,7 @@ class SignUpBox extends Component {
             }}
           />
           <input
-            className="sign-in-up-input"
+            className="app-input"
             type="text"
             name="lastname"
             placeholder="Last name"
@@ -57,7 +57,7 @@ class SignUpBox extends Component {
             }}
           />
           <input
-            className="sign-in-up-input"
+            className="app-input"
             type="text"
             name="email"
             placeholder="Email"
@@ -67,7 +67,7 @@ class SignUpBox extends Component {
             }}
           />
           <input
-            className="sign-in-up-input"
+            className="app-input"
             type="password"
             name="password"
             placeholder="Password"
@@ -77,7 +77,7 @@ class SignUpBox extends Component {
             }}
           />
           <input
-            className="sign-in-up-input"
+            className="app-input"
             type="password"
             name="confirm_password"
             placeholder="Confirm Password"

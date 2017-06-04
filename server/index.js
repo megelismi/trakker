@@ -43,34 +43,38 @@ app.use(express.static(process.env.CLIENT_PATH));
 //   })
 // ));
 
-const appId = 'b9aa60b9';
-const appKey = '0b428882b9ae3e2d323ef4a1ab0d6463';
-const flightId =
+// const appId = 'b9aa60b9';
+// const appKey = '0b428882b9ae3e2d323ef4a1ab0d6463';
 
-// app.get('/flight/:flightNumber', (req, res) => {
-//   const flightNumber = { req.params };
-//   return http.get()
-// });
+app.get('/flights/:flightNumber', (req, res) => {
+  const { flightNumber } = req.params;
+  const mockData = {
+    localTime: '12:25pm',
+    localDate: 'August 9, 2012',
+    airport: 'Heathrow Airport'
+  };
+  return res.status(200).json(mockData);
+});
 
-//  return http.get({
-//         host: 'personatestuser.org',
-//         path: '/email'
-//     }, function(response) {
-//         // Continuously update stream with data
-//         var body = '';
-//         response.on('data', function(d) {
-//             body += d;
-//         });
-//         response.on('end', function() {
+ // return http.get({
+ //        host: 'personatestuser.org',
+ //        path: '/email'
+ //    }, function(response) {
+ //        // Continuously update stream with data
+ //        var body = '';
+ //        response.on('data', function(d) {
+ //            body += d;
+ //        });
+ //        response.on('end', function() {
 
-//             // Data reception is done, do whatever with it!
-//             var parsed = JSON.parse(body);
-//             callback({
-//                 email: parsed.email,
-//                 password: parsed.pass
-//             });
-//         });
-//     });
+ //            // Data reception is done, do whatever with it!
+ //            var parsed = JSON.parse(body);
+ //            callback({
+ //                email: parsed.email,
+ //                password: parsed.pass
+ //            });
+ //        });
+ //    });
 
 //on refresh see if user was logged in, if so, log them back in
 app.get('/find/cookie/:accessToken', (req, res) => {
