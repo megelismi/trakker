@@ -13,7 +13,7 @@ export const findUserFromCookie = accessToken => dispatch => fetch(`/find/cookie
     dispatch(postResults.appLoginSuccess(err));
   });
 
-  export const getFlightDetails = flightNumber => dispatch => fetch(`/flights/${flightNumber}`)
+  export const getFlightDetails = (flightNumber, flightDate) => dispatch => fetch(`/flights/${flightNumber}/${flightDate}`)
   .then(res => {
     if (!res.ok) {
       throw new Error(res.statusText);

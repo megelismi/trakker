@@ -1,50 +1,58 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DatePicker from 'react-bootstrap-date-picker';
-import moment from 'moment';
 import * as getRequests from '../actions/getRequests';
-import * as handlers from './handlers/handlers';
-// import '../../../node_modules/react-datepicker/dist/react-datepicker.css';
+// import * as handlers from './handlers/handlers';
 
 class FlightsPage extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      startDate: new Date().toISOString()
+      flightDate: new Date().toISOString(),
+      flightNumberError: null
     };
   }
 
   dateChange(date) {
     this.setState({
-      startDate: date
+      flightDate: date
     });
   }
 
   sendFlightInfo(e) {
     e.preventDefault();
-    this.props.dispatch(getRequests.getFlightDetails(this.flightNumber.value));
+    const flightDate = this.state.flightDate.slice(0, 10);
+    if (this.flightNumber.value === "") {
+      this.setState({
+        flightNumberError: 'Please enter a flight number.'
+      });
+    } else {
+      this.setState({
+        flightNumberError: null
+      });
+      this.props.dispatch(getRequests.getFlightDetails(this.flightNumber.value, flightDate));
+    }
   }
 
   render() {
+    console.log(this.state.flightNumberError);
     let flightDetails;
     if (this.props.flightDetails) {
       flightDetails = (
         <p>
           {
-            `Flight number ${this.flightNumber.value} is set to arrive at `}
-            <span className="bold">{`${this.props.flightDetails.airport}`}</span>
-            {' on '}
-            <span className="bold">{`${this.props.flightDetails.localDate}`}</span>
-            {' at '}
-            <span className="bold">{`${this.props.flightDetails.localTime}.`}</span>
+            `Flight number ${this.flightNumber.value} is set to arrive at
+            ${this.props.flightDetails.airport} on ${this.props.flightDetails.localDate}
+            at ${this.props.flightDetails.localTime}.`
+          }
         </p>
       );
     } else {
       flightDetails = <div />;
     }
 
-    const firstName = handlers.getFirstName(this.props.currentUser.name);
+    //const firstName = handlers.getFirstName(this.props.currentUser.name);
 
     return (
       <div className="flights-page-container">
@@ -62,11 +70,15 @@ class FlightsPage extends Component {
               }}
             />
           <DatePicker
-            value={this.state.startDate}
+            value={this.state.flightDate}
             onChange={this.dateChange.bind(this)}
           />
           <input className="submit-button" type="submit" value="Get Flight Details" />
           </form>
+          <div className="input-req">
+            Flight numbers must include airline code (i.e., AA3453).
+          </div>
+          <span className="auth-error">{this.state.flightNumberError ? this.state.flightNumberError : null}</span>
           {flightDetails}
         </div>
       </div>
