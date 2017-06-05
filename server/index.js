@@ -49,8 +49,9 @@ app.get('/flights/:flightNumber/:flightDate', (req, res) => {
   const flightDetails = new FlightFetcher(flightNumber, flightDate);
   flightDetails.getFlightInfo((err, flightInfo) => {
     if (err) {
-      console.error(err);
-      return res.send(err);
+      console.log(err);
+      console.log('sent server error');
+      return res.status(404).json({ displayMessage: 'Information for that flight not found.' });
     }
     return res.status(200).json(flightInfo);
   });
@@ -68,7 +69,7 @@ app.get('/find/cookie/:accessToken', (req, res) => {
       const { name, id, email, accessToken } = existingUser[0];
       return res.status(200).json({ name, id, email, accessToken });
     }
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ displayMessage: 'User not found' });
   });
 });
 
@@ -104,7 +105,7 @@ app.post('/login', jsonParser, (req, res) => {
   const { email, password } = req.body;
 
   if (!userValidity.allFormFieldsFilledIn(req.body)) {
-    return res.status(422).json({ message: 'All fields are required.' });
+    return res.status(422).json({ displayMessage: 'All fields are required.' });
   }
     User.find({ email }, (err, existingUser) => {
 			if (err) {
@@ -114,7 +115,7 @@ app.post('/login', jsonParser, (req, res) => {
 
 			//make sure email exists in db
 			if (!existingUser.length) {
-				return res.status(401).json({ message: 'The email address you entered is not registered with us.' });
+				return res.status(401).json({ displayMessage: 'The email address you entered is not registered with us.' });
 			}
 
 			//verify that password is correct, if so send back user info
@@ -123,7 +124,7 @@ app.post('/login', jsonParser, (req, res) => {
 				return res.status(200).json({ name, id, email, accessToken });
 			}
 
-			return res.status(401).json({ message: 'The password you entered is incorrect.' });
+			return res.status(401).json({ displayMessage: 'The password you entered is incorrect.' });
     });
   });
 
@@ -136,7 +137,7 @@ app.post('/signup', jsonParser, (req, res) => {
 
   //make sure user info that was submitted is valid
   if (userValidityCheck.isInvalid) {
-    return res.status(userValidityCheck.status).json({ message: userValidityCheck.message });
+    return res.status(userValidityCheck.status).json({ displayMessage: userValidityCheck.message });
   }
 
   User.find({ email }, (err, existingUser) => {
@@ -148,7 +149,7 @@ app.post('/signup', jsonParser, (req, res) => {
 		//make sure email is not already in the db
     if (existingUser.length) {
       return res.status(409)
-       .json({ message: 'That email address is already on file. Try signing in.' });
+       .json({ displayMessage: 'That email address is already on file. Try signing in.' });
     }
 
     //if all checks are passed, create an account and send back user info

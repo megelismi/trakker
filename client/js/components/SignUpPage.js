@@ -91,15 +91,15 @@ class SignUpBox extends Component {
          <div className="input-req">
           Passwords must contain 6 characters, including 1 number and 1 symbol.
         </div>
-        <span className="auth-error">{this.props.appHasAuthError ? this.props.authError : null}</span>
+        <span className="user-error">{this.props.appHasUserError ? this.props.userError : null}</span>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  appHasAuthError: state.appHasAuthError,
-  authError: state.authError
+  appHasUserError: state.appHasUserError,
+  userError: state.userError
 });
 
 export default connect(mapStateToProps)(SignUpBox);

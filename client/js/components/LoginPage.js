@@ -47,15 +47,15 @@ class LoginPage extends Component {
             value="Login"
           />
         </form>
-        <span className="auth-error">{this.props.appHasAuthError ? this.props.authError : null}</span>
+        <span className="user-error">{this.props.appHasUserError ? this.props.userError : null}</span>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  appHasAuthError: state.appHasAuthError,
-  authError: state.authError
+  appHasSeverError: state.appHasUserError,
+  userError: state.userError
 });
 
 export default connect(mapStateToProps)(LoginPage);

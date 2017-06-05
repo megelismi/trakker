@@ -2,6 +2,7 @@
 
 import https from 'https';
 import _ from 'underscore';
+const moment = require('moment');
 
 class FlightFetcher {
     /**
@@ -24,6 +25,15 @@ class FlightFetcher {
      */
   setFlightNumber(flightNumber) {
     this._flightNumber = flightNumber;
+  }
+
+    /**
+     * Set the flight Date after initialization if needed.
+     *
+     * @param flightDate
+     */
+  setFlightDate(flightDate) {
+    this._flightDate = flightDate;
   }
 
     /**
@@ -50,9 +60,13 @@ class FlightFetcher {
     });
 
     response.on('end', () => {
-      const reply = JSON.parse(data);
-      console.log('reply', reply.flightStatuses[0].arrivalDate);
-      callback(null, this._formatResponse(reply));
+      console.log('response', JSON.parse(data));
+      const formattedResponse = this._formatResponse(JSON.parse(data));
+      if (formattedResponse) {
+        callback(null, formattedResponse);
+      } else {
+        callback(new Error('Information for that flight number was not found.'), null);
+      }
     });
   });
 
@@ -79,20 +93,30 @@ class FlightFetcher {
      this._appId}&appKey=${this._appKey}&utc=false`;
   }
 
-  /**
+    /**
    * Parses the raw flight number into its component.
    *
    * @returns {{airline: string, number: string}}
    * @private
    */
+
   _parseFlightNumber() {
     if (!this._flightNumber || this._flightNumber.length <= 2) {
       throw new Error('Cannot parse flight number');
     }
 
-    const airline = this._flightNumber.substring(0, 2);
-    const number = this._flightNumber.substring(2, this._flightNumber.length);
+    let lastLetterIndex;
+    const letters = /^[A-z]+$/;
 
+    for (let i = 0; i < this._flightNumber.length; i++) {
+      if (!this._flightNumber[i].match(letters)) {
+        lastLetterIndex = i;
+        break;
+      }
+    }
+
+    const airline = this._flightNumber.slice(0, lastLetterIndex);
+    const number = this._flightNumber.slice(lastLetterIndex, this._flightNumber.length);
     return {
       airline,
       number
@@ -130,15 +154,22 @@ class FlightFetcher {
      * @private
      */
   _formatResponse(reply) {
-    const formattedResp = null;
-    if (!_.has(reply.flightStatuses[0], 'arrivalDate') ||
+    if (!_.has(reply, 'flightStatuses') ||
+        reply.flightStatuses.length === 0 ||
+        !_.has(reply.flightStatuses[0], 'arrivalDate') ||
         !_.has(reply.flightStatuses[0].arrivalDate, 'dateLocal') ||
         !_.has(reply.appendix.airports[1], 'name')) {
-        return formattedResp;
+        return null;
     }
 
+    console.log('inputDate', reply.flightStatuses[0].arrivalDate.dateLocal);
+
+    const formattedDate =
+    moment(reply.flightStatuses[0].arrivalDate.dateLocal).format('MMMM Do YYYY, h:mm:ss a');
+
+    console.log('formattedDate', formattedDate);
     return {
-      date: reply.flightStatuses[0].arrivalDate.dateLocal,
+      date: formattedDate,
       airport: reply.appendix.airports[1].name
     };
   }

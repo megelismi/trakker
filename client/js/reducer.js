@@ -6,27 +6,42 @@ const initialState = (state = {
   }, action) => {
     switch (action.type) {
 
-    case postResults.APP_LOGIN_ERROR:
-      return Object.assign({}, state, {
-        appHasAuthError: true,
-        authError: action.error
-      });
-
     case postResults.APP_LOGIN_SUCCESS:
       return Object.assign({}, state, {
-        appHasAuthError: false,
-        authError: null,
         currentUser: action.currentUser,
+        appHasServerError: false,
+        serverError: null,
+        userError: null,
+        appHasUserError: false
+      });
+
+    case postResults.DISPLAY_ERROR_TO_USER:
+      return Object.assign({}, state, {
+        appHasUserError: true,
+        userError: action.error,
+        flightDetails: null
+      });
+
+    case postResults.ERROR_FROM_SERVER:
+      return Object.assign({}, state, {
+        appHasServerError: true,
+        serverError: action.error
       });
 
     case postResults.FB_LOGIN_ERROR:
       return Object.assign({}, state, { fbLoginError: action.error });
 
     case postResults.FB_LOGIN_SUCCESS:
-      return Object.assign({}, state, { currentUser: action.currentUser });
+      return Object.assign({}, state, { currentUser: action.currentUser, fbLoginError: null});
 
     case getResults.GET_FLIGHT_DETAILS_SUCCESS:
-      return Object.assign({}, state, { flightDetails: action.details });
+      return Object.assign({}, state, {
+        flightDetails: action.details,
+        serverError: null,
+        appHasServerError: false,
+        userError: null,
+        appHasUserError: false
+      });
 
     default:
       return state;

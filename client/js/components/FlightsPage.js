@@ -76,7 +76,11 @@ class FlightsPage extends Component {
           <div className="input-req">
             Flight numbers must include airline code (i.e., AA3453).
           </div>
-          <span className="auth-error">{this.state.flightNumberError ? this.state.flightNumberError : null}</span>
+          <span className="user-error">
+            {this.state.flightNumberError || this.props.appHasUserError ?
+              this.state.flightNumberError || this.props.userError :
+              null}
+            </span>
           {flightDetails}
         </div>
       </div>
@@ -86,7 +90,9 @@ class FlightsPage extends Component {
 
 const mapStateToProps = state => ({
   currentUser: state.currentUser,
-  flightDetails: state.flightDetails
+  flightDetails: state.flightDetails,
+  appHasUserError: state.appHasUserError,
+  userError: state.userError
 });
 
 //<p className="welcome-name">Welcome, {firstName}!</p>

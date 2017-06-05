@@ -1,30 +1,34 @@
 import Cookies from 'js-cookie';
-import createHistory from 'history/createBrowserHistory';
+import _ from 'underscore';
 import * as postResults from './postResults.js';
 
-const history = createHistory();
-
 export const appLogin = user => dispatch => {
-    const url = '/login';
-    return fetch(url, {
-      method: 'post',
-      headers: {
-        'Content-type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify(user)
-    })
-    .then(res => {
-      if (!res.ok) {
-        return res.json()
-        .then(error => dispatch(postResults.appLoginError(error.message)));
-      }
+  const url = '/login';
+  return fetch(url, {
+    method: 'post',
+    headers: {
+      'Content-type': 'application/json; charset=utf-8'
+    },
+    body: JSON.stringify(user)
+  })
+  .then(res => {
+    if (!res.ok) {
       return res.json()
-      .then(currentUser => {
-        Cookies.set('savori_token', currentUser.accessToken);
-        dispatch(postResults.appLoginSuccess(currentUser));
+      .then(error => {
+        if (_.has(error, 'displayMessage')) {
+          dispatch(postResults.displayErrorToUser(error.displayMessage));
+        } else {
+          dispatch(postResults.errorFromServer(error));
+        }
       });
+    }
+    return res.json()
+    .then(currentUser => {
+      Cookies.set('savori_token', currentUser.accessToken);
+      dispatch(postResults.appLoginSuccess(currentUser));
     });
-  };
+  });
+};
 
 export const appSignUp = user => dispatch => {
     const url = '/signup';
@@ -38,7 +42,7 @@ export const appSignUp = user => dispatch => {
     .then(res => {
       if (!res.ok) {
         return res.json()
-        .then(error => dispatch(postResults.appLoginError(error.message)));
+        .then(error => dispatch(postResults.errorFromServer(error.message)));
       }
         return res.json()
         .then(currentUser => {
