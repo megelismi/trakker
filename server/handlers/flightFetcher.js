@@ -60,7 +60,7 @@ class FlightFetcher {
     });
 
     response.on('end', () => {
-      console.log('response', JSON.parse(data));
+      console.log('response', JSON.parse(data).appendix.airports);
       const formattedResponse = this._formatResponse(JSON.parse(data));
       if (formattedResponse) {
         callback(null, formattedResponse);
@@ -146,6 +146,14 @@ class FlightFetcher {
     };
   }
 
+  _getArrivalAirport(airports, airportCode) {
+    for (let i = 0; i < airports.length; i++) {
+      if (airports[i].fs === airportCode) {
+        return airports[i].name;
+      }
+    }
+  }
+
     /**
      * Trims the response object from the api to only the necessary fields.
      *
@@ -158,19 +166,19 @@ class FlightFetcher {
         reply.flightStatuses.length === 0 ||
         !_.has(reply.flightStatuses[0], 'arrivalDate') ||
         !_.has(reply.flightStatuses[0].arrivalDate, 'dateLocal') ||
+        !_.has(reply.flightStatuses[0], 'arrivalAirportFsCode') ||
         !_.has(reply.appendix.airports[1], 'name')) {
         return null;
     }
 
-    console.log('inputDate', reply.flightStatuses[0].arrivalDate.dateLocal);
-
     const formattedDate =
     moment(reply.flightStatuses[0].arrivalDate.dateLocal).format('MMMM Do YYYY, h:mm:ss a');
 
-    console.log('formattedDate', formattedDate);
+    const arrivalAirport = this._getArrivalAirport(reply.appendix.airports, reply.flightStatuses[0].arrivalAirportFsCode);
+
     return {
       date: formattedDate,
-      airport: reply.appendix.airports[1].name
+      airport: arrivalAirport
     };
   }
 
