@@ -75,7 +75,7 @@ class FlightFetcher {
     const flightNumber = this._parseFlightNumber();
 
     return `/flex/flightstatus/rest/v2/json/flight/status/${flightNumber.airline
-     }/${flightNumber.number}/arr/${date.year}/${date.month}/${date.day}?appId=${
+     }/${flightNumber.number}/dep/${date.year}/${date.month}/${date.day}?appId=${
      this._appId}&appKey=${this._appKey}&utc=false`;
   }
 
