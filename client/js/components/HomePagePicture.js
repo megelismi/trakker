@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 class HomePagePicture extends Component {
 
   render() {
-
     return (
       <div className="homepage-container">
         <div className="intro-container">
@@ -18,9 +16,4 @@ class HomePagePicture extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  currentUser: state.currentUser
-});
-
-
-export default connect(mapStateToProps)(HomePagePicture);
+export default HomePagePicture;

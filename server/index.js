@@ -6,11 +6,11 @@ import dotenv from 'dotenv';
 // import mongodb from 'mongodb';
 // import passport from 'passport';
 // import { Strategy } from 'passport-http-bearer';
-import http from 'http';
 import bcrypt from 'bcryptjs';
 import uuidV1 from 'uuid/v1';
 import shortid from 'shortid';
 import User from './models/users';
+import FlightFetcher from './handlers/flightFetcher';
 import * as userValidity from './handlers/userValidity';
 import verifyPassword from './handlers/verifyPassword';
 
@@ -43,18 +43,17 @@ app.use(express.static(process.env.CLIENT_PATH));
 //   })
 // ));
 
-// const appId = 'b9aa60b9';
-// const appKey = '0b428882b9ae3e2d323ef4a1ab0d6463';
 
 app.get('/flights/:flightNumber/:flightDate', (req, res) => {
   const { flightNumber, flightDate } = req.params;
-  console.log('flightNumber', flightNumber, 'flightDate', flightDate);
-  const mockData = {
-    localTime: '12:25pm',
-    localDate: 'August 9, 2012',
-    airport: 'Heathrow Airport'
-  };
-  return res.status(200).json(mockData);
+  const flightDetails = new FlightFetcher(flightNumber, flightDate);
+  flightDetails.getFlightInfo((err, flightInfo) => {
+    if (err) {
+      console.error(err);
+      return res.send(err);
+    }
+    return res.status(200).json(flightInfo);
+  });
 });
 
 //on refresh see if user was logged in, if so, log them back in

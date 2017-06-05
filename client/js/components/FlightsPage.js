@@ -23,7 +23,7 @@ class FlightsPage extends Component {
   sendFlightInfo(e) {
     e.preventDefault();
     const flightDate = this.state.flightDate.slice(0, 10);
-    if (this.flightNumber.value === "") {
+    if (this.flightNumber.value === '') {
       this.setState({
         flightNumberError: 'Please enter a flight number.'
       });
@@ -31,20 +31,18 @@ class FlightsPage extends Component {
       this.setState({
         flightNumberError: null
       });
-      this.props.dispatch(getRequests.getFlightDetails(this.flightNumber.value, flightDate));
+      this.props.dispatch(getRequests.getFlightDetails(this.flightNumber.value.trim(), flightDate.trim()));
     }
   }
 
   render() {
-    console.log(this.state.flightNumberError);
     let flightDetails;
     if (this.props.flightDetails) {
       flightDetails = (
         <p>
           {
             `Flight number ${this.flightNumber.value} is set to arrive at
-            ${this.props.flightDetails.airport} on ${this.props.flightDetails.localDate}
-            at ${this.props.flightDetails.localTime}.`
+            ${this.props.flightDetails.airport} on ${this.props.flightDetails.date}.`
           }
         </p>
       );

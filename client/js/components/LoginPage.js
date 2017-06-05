@@ -5,7 +5,7 @@ import * as postRequests from '../actions/postRequests';
 
 class LoginPage extends Component {
 
-  sendSignInInfo(e) {
+  sendLoginInfo(e) {
     e.preventDefault();
     this.props.dispatch(postRequests.appLogin(
       { email: this.email.value, password: this.password.value }
@@ -20,7 +20,7 @@ class LoginPage extends Component {
         <h2 className="app-content-header">Welcome Back!</h2>
         <FacebookLogin history={this.props.history} />
         <p className="email-option">or login with email</p>
-        <form className="login-form" onSubmit={this.sendSignInInfo.bind(this)}>
+        <form className="login-form" onSubmit={this.sendLoginInfo.bind(this)}>
           <input
             className="app-input"
             type="text"
