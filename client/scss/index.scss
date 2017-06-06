@@ -59,7 +59,7 @@ table {
   right: 0;
   border: 1px solid lightgray;
   border-radius: 2px;
-  padding: 20px 0;
+  padding: 20px 10px;
 }
 
 .app-content-header {
@@ -116,5 +116,61 @@ table {
   font-size: 12px;
 }
 
+
+@media only screen and (max-width: 460px) {
+
+  .app-content-container {
+    width: 300px;
+    margin-bottom: 30px;
+  }
+
+  .app-content-header {
+    font-size: 26px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .app-input {
+    width: 256px;
+    font-size: 12px;
+  }
+
+  .input-group {
+    width: 255px;
+  }
+
+  .input-req {
+    font-size: 10px;
+  }
+
+}
+
+@media only screen and (max-width: 375px) {
+
+  .app-content-container {
+    width: 250px;
+    margin-bottom: 30px;
+  }
+
+  .app-content-header {
+    font-size: 26px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .app-input {
+    width: 206px;
+    font-size: 12px;
+  }
+
+  .input-group {
+    width: 205px;
+  }
+
+  .input-req {
+    font-size: 10px;
+  }
+
+}
 
 

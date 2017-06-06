@@ -43,3 +43,38 @@ $fb-blue: #4267b2;
 }
 
 
+@media only screen and (max-width: 460px) {
+
+  .facebook-login-button {
+    width: 250px;
+  }
+
+  .submit-button {
+    width: 256px;
+  }
+
+  .facebook-login-button, .submit-button {
+    font-size: 12px;
+  }
+
+}
+
+@media only screen and (max-width: 375px) {
+
+  .facebook-login-button {
+    width: 200px;
+  }
+
+  .submit-button {
+    width: 206px;
+  }
+
+  .facebook-login-button, .submit-button {
+    font-size: 12px;
+  }
+
+
+}
+
+
+

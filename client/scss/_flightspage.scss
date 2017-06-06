@@ -6,13 +6,12 @@
   top: 400px;
   width: 400px;
   text-align: center;
+  p {
+    margin: 10px;
+  }
 }
 
-.flight-details-response {
-  margin: 10px;
-}
-
-.flight-directions {
+.flight-directions-header {
   font-size: 13px;
 }
 
@@ -23,4 +22,34 @@
 .welcome-name {
   text-align: center;
   margin: 20px;
+}
+
+
+@media only screen and (max-width: 460px) {
+
+  .flight-details-response-container {
+    width: 300px;
+    top: 375px;
+    p {
+      font-size: 12px;
+    }
+  }
+
+  .flight-directions-header {
+    font-size: 11px;
+  }
+
+}
+
+@media only screen and (max-width: 375px) {
+
+  .flight-details-response-container {
+    width: 250px;
+    top: 375px;
+  }
+
+  .flight-directions-header {
+    font-size: 11px;
+  }
+
 }

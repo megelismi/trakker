@@ -33,13 +33,13 @@ $teal: #06D6A0;
 
 .homepage-logo {
   width: 80px;
-  margin: 20px;
+  margin: 10px;
 }
 
 .intro-container {
   z-index: 1;
   color: white;
-  width: 70%;
+  width: 100%;
   margin: auto;
   text-align: center;
   top: 150px;
@@ -48,6 +48,50 @@ $teal: #06D6A0;
   position: absolute;
   h2 {
     font-weight: 300;
-    font-size: 48px;
+    font-size: 52px;
   }
+}
+
+@media only screen and (max-width: 768px) {
+
+  .intro-container {
+    h2 {
+      font-size: 36px;
+    }
+  }
+
+  .homepage-logo {
+    width: 65px;
+  }
+
+}
+
+@media only screen and (max-width: 460px) {
+
+  .intro-container {
+    h2 {
+      font-size: 28px;
+    }
+  }
+
+  .homepage-logo {
+    width: 55px;
+    margin: 0;
+  }
+
+}
+
+@media only screen and (max-width: 375px) {
+
+  .intro-container {
+    h2 {
+      font-size: 24px;
+    }
+  }
+
+  .homepage-logo {
+    width: 50px;
+    margin: 0;
+  }
+
 }

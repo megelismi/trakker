@@ -54,7 +54,7 @@ class FlightsPage extends Component {
     let flightDetails;
     if (this.props.flightDetails) {
       flightDetails = (
-        <p className="flight-details-response">
+        <p>
           {
             `Flight number ${this.state.flightNumber} is set to arrive at
             ${this.props.flightDetails.airport} on ${this.props.flightDetails.date}.`
@@ -69,7 +69,9 @@ class FlightsPage extends Component {
       <div className="app-content-outer-wrapper">
         <div className="app-content-container">
         <h2 className="app-content-header flight-header">Track Your Flight</h2>
-        <h4 className="flight-directions">Enter your flight number and departure date below.</h4>
+        <h4 className="flight-directions-header">
+          Enter your flight number and departure date below.
+        </h4>
          <form className="flight-info-form" onSubmit={this.sendFlightInfo.bind(this)}>
             <input
               className="app-input"
