@@ -17,6 +17,7 @@ class FlightsPage extends Component {
 
   componentWillMount() {
     this.props.dispatch(async.purge('flightDetails'));
+    this.props.dispatch(async.purge('userError', 'appHasUserError'));
   }
 
   dateChange(date) {

@@ -150,7 +150,7 @@ app.post('/signup', jsonParser, (req, res) => {
 		//make sure email is not already in the db
     if (existingUser.length) {
       return res.status(409)
-       .json({ displayMessage: 'That email address is already on file. Try signing in.' });
+       .json({ displayMessage: 'That email address is already on file. Try logging in.' });
     }
 
     //if all checks are passed, create an account and send back user info
