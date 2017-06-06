@@ -1,17 +1,12 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 
-class HomePage extends Component {
-
-  render() {
-    return (
-      <div className="homepage-container">
-        <div className="intro-container">
-          <h2>Welcome to Flight Trakker</h2>
-        </div>
+const HomePage = () => (
+    <div className="homepage-container">
+      <div className="intro-container">
+        <h2>Welcome to Flight Trakker</h2>
+        <img className="homepage-logo" src="../../assets/white_logo4.png" role="presentation" />
       </div>
-    );
-  }
-}
+    </div>
+  );
 
 export default HomePage;

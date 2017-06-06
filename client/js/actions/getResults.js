@@ -5,7 +5,3 @@ export const getFlightDetailsSuccess = details => ({
   details
 });
 
-export const PURGE_USER_DISPLAY_ERROR = 'PURGE_USER_DISPLAY_ERROR';
-export const purgeUserDisplayError = () => ({
-  type: PURGE_USER_DISPLAY_ERROR
-});

@@ -1,3 +1,4 @@
+import * as async from './actions/async';
 import * as getResults from './actions/getResults';
 import * as postResults from './actions/postResults';
 
@@ -32,7 +33,7 @@ const initialState = (state = {
       return Object.assign({}, state, { fbLoginError: action.error });
 
     case postResults.FB_LOGIN_SUCCESS:
-      return Object.assign({}, state, { currentUser: action.currentUser, fbLoginError: null});
+      return Object.assign({}, state, { currentUser: action.currentUser, fbLoginError: null });
 
     case getResults.GET_FLIGHT_DETAILS_SUCCESS:
       return Object.assign({}, state, {
@@ -48,7 +49,19 @@ const initialState = (state = {
         currentUser: null
       });
 
-    case getResults.PURGE_USER_DISPLAY_ERROR:
+    case async.PURGE:
+      if (action.bool) {
+        return Object.assign({}, state, {
+          [action.field]: null,
+          [action.bool]: false
+        });
+      } 
+        return Object.assign({}, state, {
+          [action.field]: null,
+        });
+
+
+    case async.PURGE_USER_DISPLAY_ERROR:
       return Object.assign({}, state, {
         appHasUserError: false,
         userError: null

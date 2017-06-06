@@ -2,6 +2,8 @@ import _ from 'underscore';
 import * as getResults from './getResults';
 import * as postResults from './postResults';
 
+/*eslint-disable no-undef*/
+
 export const findUserFromCookie = accessToken => dispatch => fetch(`/find/cookie/${accessToken}`)
   .then(res => {
     if (!res.ok) {
@@ -14,7 +16,8 @@ export const findUserFromCookie = accessToken => dispatch => fetch(`/find/cookie
     dispatch(postResults.errorFromServer(err));
   });
 
-export const getFlightDetails = (flightNumber, flightDate, accessToken) => dispatch => fetch(`/flights/${flightNumber}/${flightDate}`, {
+export const getFlightDetails = (flightNumber, flightDate, accessToken) =>
+dispatch => fetch(`/flights/${flightNumber}/${flightDate}`, {
   method: 'get',
     headers: {
       Authorization: `Bearer ${accessToken}`
@@ -36,18 +39,3 @@ export const getFlightDetails = (flightNumber, flightDate, accessToken) => dispa
       dispatch(getResults.getFlightDetailsSuccess(flightDetails));
     });
   });
-
-
-export const logOut = accessToken => dispatch => fetch('/logout', {
-    method: 'post',
-    headers: {
-      Authorization: `Bearer ${accessToken}`
-    }
-  }).then(res => {
-    if (!res.ok) {
-      throw new Error(res.statusText);
-    }
-  }).then(() => {
-    Cookies.remove('savori_token');
-    dispatch(postResults.logoutSuccess());
-  }).catch(error => { dispatch(postResults.logoutError(error)); });

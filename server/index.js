@@ -114,7 +114,9 @@ app.post('/login', jsonParser, (req, res) => {
 
 			//make sure email exists in db
 			if (!existingUser.length) {
-				return res.status(401).json({ displayMessage: 'The email address you entered is not registered with us.' });
+				return res.status(401).json(
+          { displayMessage: 'The email address you entered is not registered with us.' }
+        );
 			}
 
 			//verify that password is correct, if so send back user info

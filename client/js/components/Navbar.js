@@ -7,8 +7,6 @@ import * as postRequests from '../actions/postRequests';
 class NavbarComponent extends Component {
 
   logout() {
-    console.log('logout called');
-    console.log('props', this.props);
     this.props.dispatch(postRequests.logOut(this.props.currentUser.accessToken))
     .then(() => {
       this.props.history.push('/');
@@ -27,11 +25,18 @@ class NavbarComponent extends Component {
     } else {
       rightNavLinks = (
         <Nav pullRight>
-          <NavItem eventKey={1}><Link to="/login">Login</Link></NavItem>
-          <NavItem eventKey={2}><Link to="/signup">Sign Up</Link></NavItem>
+          <NavItem
+            onClick={() => { this.props.history.push('/login'); }}
+            eventKey={1}
+          >Login</NavItem>
+          <NavItem
+            onClick={() => { this.props.history.push('/signup'); }}
+            eventKey={2}
+          >Sign Up</NavItem>
         </Nav>
       );
     }
+
     return (
       <Navbar collapseOnSelect>
         <Navbar.Header>

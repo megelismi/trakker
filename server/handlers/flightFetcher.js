@@ -1,7 +1,7 @@
-// 'use strict';
 
 import https from 'https';
 import _ from 'underscore';
+
 const moment = require('moment');
 
 class FlightFetcher {
@@ -65,6 +65,7 @@ class FlightFetcher {
     });
 
     response.on('end', () => {
+      console.log(JSON.parse(data).flightStatuses[0].operationalTimes);
       const formattedResponse = this._formatResponse(JSON.parse(data));
       if (formattedResponse) {
         callback(null, formattedResponse);
@@ -141,7 +142,8 @@ class FlightFetcher {
     }
 
     const parts = this._flightDate.split('-');
-    if (parts.length !== 3 || parts[0].length !== 4 || parts[1].length !== 2 || parts[2].length !== 2) {
+    if (parts.length !== 3 || parts[0].length !== 4
+      || parts[1].length !== 2 || parts[2].length !== 2) {
       throw new Error('Flight Date is in incorrect format.');
     }
 
@@ -189,7 +191,8 @@ class FlightFetcher {
     const formattedDate =
     moment(reply.flightStatuses[0].arrivalDate.dateLocal).format('MMMM Do YYYY, h:mm:ss a');
 
-    const arrivalAirport = this._getArrivalAirport(reply.appendix.airports, reply.flightStatuses[0].arrivalAirportFsCode);
+    const arrivalAirport =
+    this._getArrivalAirport(reply.appendix.airports, reply.flightStatuses[0].arrivalAirportFsCode);
 
     return {
       date: formattedDate,

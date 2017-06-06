@@ -1,3 +1,25 @@
+.flight-details-response-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 400px;
+  width: 400px;
+  text-align: center;
+}
+
+.flight-details-response {
+  margin: 10px;
+}
+
+.flight-directions {
+  font-size: 13px;
+}
+
+.flight-header {
+  margin-bottom: 25px !important;
+}
+
 .welcome-name {
   text-align: center;
   margin: 20px;

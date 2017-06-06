@@ -2,6 +2,8 @@ import Cookies from 'js-cookie';
 import _ from 'underscore';
 import * as postResults from './postResults.js';
 
+/*eslint-disable no-undef*/
+
 export const appLogin = user => dispatch => {
   const url = '/login';
   return fetch(url, {
@@ -93,4 +95,4 @@ export const logOut = accessToken => dispatch => fetch('/logout', {
   }).then(() => {
     Cookies.remove('savori_token');
     dispatch(postResults.logoutSuccess());
-  }).catch(error => { dispatch(postResults.logoutError(error)); });
+  }).catch(error => console.log('logout error:', error));
