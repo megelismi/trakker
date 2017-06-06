@@ -1,16 +1,37 @@
+  /**
+   * Checks to make sure email is valid
+   *
+   * @param {String}
+   * @returns bool
+   */
+
 const validEmail = email => {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
 };
 
+  /**
+   * Ensures there are not blank form fields
+   *
+   * @param {Object} request
+   * @returns bool
+   */
+
 export const allFormFieldsFilledIn = request => {
- for (const field in request) {
-   if (request[field] === '') {
-     return false;
-   }
- }
- return true;
+  for (const field in request) {
+    if (request[field] === '') {
+      return false;
+    }
+  }
+  return true;
 };
+
+  /**
+   * Ensures password meets the requirements: 1 symbol, 1 digit, 6 characters
+   *
+   * @param {String}
+   * @returns bool
+   */
 
  const passwordMeetsRequirements = password => {
   const symbol = /[$-/:-?{-~!"^_`\[\]]/;
@@ -25,6 +46,13 @@ export const allFormFieldsFilledIn = request => {
   }
   return true;
 };
+
+  /**
+   * Ensures all sign up requirements were met
+   *
+   * @param {Object} request}
+   * @returns {*}
+   */
 
 export const signUpValidity = (user) => {
   const { password, email, confirmedPassword } = user;

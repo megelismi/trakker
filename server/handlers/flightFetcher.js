@@ -33,7 +33,7 @@ class FlightFetcher {
   /**
    * Set the flight Date after initialization if needed.
    *
-   * @param flightDate
+   * @param {String} flightDate
    */
 
   setFlightDate(flightDate) {
@@ -86,7 +86,7 @@ class FlightFetcher {
   /**
    * Builds the path for https library.
    *
-   * @returns {string}
+   * @returns {String}
    * @private
    */
 
@@ -102,7 +102,7 @@ class FlightFetcher {
     /**
    * Parses the raw flight number into its component.
    *
-   * @returns {{airline: string, number: string}}
+   * @returns {{airline: String, number: String}}
    * @private
    */
 
@@ -157,8 +157,8 @@ class FlightFetcher {
   /**
    * Extracts the full arrival airport name.
    *
-   * @params {Object} reply, {string}
-   * @returns {string}
+   * @params {Object} reply, {String}
+   * @returns {String}
    * @private
    */
 
