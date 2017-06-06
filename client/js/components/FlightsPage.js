@@ -31,7 +31,12 @@ class FlightsPage extends Component {
       this.setState({
         flightNumberError: null
       });
-      this.props.dispatch(getRequests.getFlightDetails(this.flightNumber.value.trim(), flightDate.trim()));
+      const accessToken = this.props.currentUser.accessToken;
+      this.props.dispatch(
+        getRequests.getFlightDetails(
+          this.flightNumber.value.trim(), flightDate.trim(), accessToken
+        )
+      );
     }
   }
 
@@ -93,5 +98,4 @@ const mapStateToProps = state => ({
   userError: state.userError
 });
 
-//<p className="welcome-name">Welcome, {firstName}!</p>
 export default connect(mapStateToProps)(FlightsPage);

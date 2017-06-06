@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 
 import https from 'https';
 import _ from 'underscore';
@@ -65,7 +65,6 @@ class FlightFetcher {
     });
 
     response.on('end', () => {
-      console.log('response', JSON.parse(data).appendix.airports);
       const formattedResponse = this._formatResponse(JSON.parse(data));
       if (formattedResponse) {
         callback(null, formattedResponse);

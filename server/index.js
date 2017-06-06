@@ -3,9 +3,8 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import express from 'express';
 import dotenv from 'dotenv';
-// import mongodb from 'mongodb';
-// import passport from 'passport';
-// import { Strategy } from 'passport-http-bearer';
+import passport from 'passport';
+import { Strategy } from 'passport-http-bearer';
 import bcrypt from 'bcryptjs';
 import uuidV1 from 'uuid/v1';
 import shortid from 'shortid';
@@ -16,8 +15,6 @@ import verifyPassword from './handlers/verifyPassword';
 
 dotenv.config({ silent: true });
 const salt = bcrypt.genSaltSync(10);
-
-// const MongoClient = mongodb.MongoClient;
 
 mongoose.Promise = global.Promise;
 
@@ -31,20 +28,22 @@ const jsonParser = bodyParser.json();
 
 app.use(express.static(process.env.CLIENT_PATH));
 
-// passport.use(new Strategy(
-//   (token, callback) => knex('users').where('token', token)
-//   .then((user) => {
-//     if (!user) { return callback(null, false); }
-//     return callback(null, user);
-//     })
-//   .catch((err) => {
-//     console.log(err);
-//     return callback(err);
-//   })
-// ));
+passport.use(new Strategy(
+  (accessToken, callback) => {
+    User.findOne({ accessToken }, (err, user) => {
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      if (!user) return callback(null, false);
 
+      return callback(null, user);
+    });
+  }
+));
 
-app.get('/flights/:flightNumber/:flightDate', (req, res) => {
+app.get('/flights/:flightNumber/:flightDate', passport.authenticate('bearer', { session: false }),
+  (req, res) => {
   const { flightNumber, flightDate } = req.params;
   const flightDetails = new FlightFetcher(flightNumber, flightDate);
   flightDetails.getFlightInfo((err, flightInfo) => {
@@ -171,8 +170,8 @@ app.post('/signup', jsonParser, (req, res) => {
   });
 });
 
-app.post('/logout', (req, res) => {
-  return res.sendStatus(200);
+app.post('/logout', passport.authenticate('bearer', { session: false }), (req, res) => {
+  res.sendStatus(200);
 });
 
 
