@@ -33,7 +33,7 @@ Code challenge for Savori app
 ## Tech Stack
 
 * Frontend: React, Redux
-* Backend: Node.js, Express, passport.js
+* Backend: Node.js, Express, Passport.js
 * Database: MongoDB
 
 
