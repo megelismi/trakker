@@ -43,6 +43,11 @@ const initialState = (state = {
         appHasUserError: false
       });
 
+    case postResults.LOGOUT_SUCCESS:
+      return Object.assign({}, state, {
+        currentUser: null
+      });
+
     default:
       return state;
   }

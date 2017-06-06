@@ -35,3 +35,15 @@ export const fbLoginSuccess = currentUser => ({
   type: FB_LOGIN_SUCCESS,
   currentUser
 });
+
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const logoutSuccess = ()=> ({
+  type: LOGOUT_SUCCESS
+});
+
+export const LOGOUT_ERROR = 'LOGOUT_ERROR';
+export const logoutError = (error)=> ({
+  type: LOGOUT_ERROR,
+  error
+});
+

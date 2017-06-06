@@ -171,6 +171,11 @@ app.post('/signup', jsonParser, (req, res) => {
   });
 });
 
+app.post('/logout', (req, res) => {
+  return res.sendStatus(200);
+});
+
+
 function runServer() {
 	const databaseUri = process.env.DATABASE_URI || global.databaseUri;
 	mongoose.connect(databaseUri);

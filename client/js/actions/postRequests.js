@@ -73,4 +73,18 @@ export const fbLogin = user => dispatch => {
           dispatch(postResults.fbLoginSuccess(currentUser));
         });
     });
-  };
+};
+
+export const logOut = accessToken => dispatch => fetch('/logout', {
+    method: 'post',
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  }).then(res => {
+    if (!res.ok) {
+      throw new Error(res.statusText);
+    }
+  }).then(() => {
+    Cookies.remove('savori_token');
+    dispatch(postResults.logoutSuccess());
+  }).catch(error => { dispatch(postResults.logoutError(error)); });

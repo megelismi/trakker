@@ -10,7 +10,9 @@ class LoginPage extends Component {
     this.props.dispatch(postRequests.appLogin(
       { email: this.email.value, password: this.password.value }
     )).then(() => {
-      this.props.history.push('/flights');
+      if (this.props.currentUser) {
+        this.props.history.push('/flights');
+      }
     });
   }
 
@@ -47,14 +49,17 @@ class LoginPage extends Component {
             value="Login"
           />
         </form>
-        <span className="user-error">{this.props.appHasUserError ? this.props.userError : null}</span>
+        <span className="user-error">
+          {this.props.appHasUserError ? this.props.userError : null}
+        </span>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  appHasSeverError: state.appHasUserError,
+  currentUser: state.currentUser,
+  appHasUserError: state.appHasUserError,
   userError: state.userError
 });
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import * as getRequests from '../actions/getRequests';
 import Cookies from 'js-cookie';
+import * as getRequests from '../actions/getRequests';
 
 export default function (Component) {
   class RequiresAuth extends React.Component {

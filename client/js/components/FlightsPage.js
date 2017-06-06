@@ -50,8 +50,6 @@ class FlightsPage extends Component {
       flightDetails = <div />;
     }
 
-    //const firstName = handlers.getFirstName(this.props.currentUser.name);
-
     return (
       <div className="flights-page-container">
         <div className="app-content-container">
@@ -74,7 +72,7 @@ class FlightsPage extends Component {
           <input className="submit-button" type="submit" value="Get Flight Details" />
           </form>
           <div className="input-req">
-            Flight numbers must include airline code (i.e., AA3453).
+            Flight numbers must include airline code (i.e., SKW5891).
           </div>
           <span className="user-error">
             {this.state.flightNumberError || this.props.appHasUserError ?

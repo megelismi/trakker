@@ -5,12 +5,14 @@ import _ from 'underscore';
 const moment = require('moment');
 
 class FlightFetcher {
-    /**
-     * Creates a flight fetcher instance.
-     *
-     * @param {String} flightNumber
-     * @param {String} flightDate
-     */
+
+  /**
+   * Creates a flight fetcher instance.
+   *
+   * @param {String} flightNumber
+   * @param {String} flightDate
+   */
+
   constructor(flightNumber, flightDate) {
     this._flightNumber = flightNumber.toLowerCase();
     this._flightDate = flightDate.toLowerCase();
@@ -18,29 +20,32 @@ class FlightFetcher {
     this._appKey = process.env.FLIGHT_STATS_APP_KEY;
   }
 
-    /**
-     * Set the flight number after initialization if needed.
-     *
-     * @param {String} flightNumber
-     */
+  /**
+   * Set the flight number after initialization if needed.
+   *
+   * @param {String} flightNumber
+   */
+
   setFlightNumber(flightNumber) {
     this._flightNumber = flightNumber;
   }
 
-    /**
-     * Set the flight Date after initialization if needed.
-     *
-     * @param flightDate
-     */
+  /**
+   * Set the flight Date after initialization if needed.
+   *
+   * @param flightDate
+   */
+
   setFlightDate(flightDate) {
     this._flightDate = flightDate;
   }
 
-    /**
-     * Fetches flight information.
-     *
-     * @param {Function} callback
-     */
+  /**
+   * Fetches flight information.
+   *
+   * @param {Function} callback
+   */
+
   getFlightInfo(callback) {
     if (!this._flightNumber) {
       throw new Error('Flight Fetcher missing flight number.');
@@ -84,6 +89,7 @@ class FlightFetcher {
    * @returns {string}
    * @private
    */
+
   _urlPath() {
     const date = this._parseFlightDate();
     const flightNumber = this._parseFlightNumber();
@@ -129,6 +135,7 @@ class FlightFetcher {
    * @returns {{year: *, month: *, day: *}}
    * @private
    */
+
   _parseFlightDate() {
     if (!this._flightDate) {
       throw new Error('No flight date. Cannot parse the date');
@@ -146,6 +153,14 @@ class FlightFetcher {
     };
   }
 
+  /**
+   * Extracts the full arrival airport name.
+   *
+   * @params {Object} reply, {string}
+   * @returns {string}
+   * @private
+   */
+
   _getArrivalAirport(airports, airportCode) {
     for (let i = 0; i < airports.length; i++) {
       if (airports[i].fs === airportCode) {
@@ -154,13 +169,14 @@ class FlightFetcher {
     }
   }
 
-    /**
-     * Trims the response object from the api to only the necessary fields.
-     *
-     * @param {Object} reply
-     * @returns {*}
-     * @private
-     */
+  /**
+   * Trims the response object from the api to only the necessary fields.
+   *
+   * @param {Object} reply
+   * @returns {*}
+   * @private
+   */
+
   _formatResponse(reply) {
     if (!_.has(reply, 'flightStatuses') ||
         reply.flightStatuses.length === 0 ||

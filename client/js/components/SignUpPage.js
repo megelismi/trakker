@@ -25,7 +25,9 @@ class SignUpBox extends Component {
       confirmedPassword: this.confirmedPassword.value.trim()
     }))
     .then(() => {
-      this.props.history.push('/flights');
+      if (this.props.currentUser) {
+        this.props.history.push('/flights');
+      }
     });
   }
 
@@ -33,7 +35,7 @@ class SignUpBox extends Component {
     return (
       <div className="app-content-container">
         <h2 className="app-content-header">Sign Up</h2>
-        <FacebookLogin history={this.props.history}/>
+        <FacebookLogin history={this.props.history} />
         <p className="email-option">or sign up with email</p>
         <form className="sign-up-form" onSubmit={this.sendSignUpInfo.bind(this)}>
           <input
@@ -98,6 +100,7 @@ class SignUpBox extends Component {
 }
 
 const mapStateToProps = state => ({
+  currentUser: state.currentUser,
   appHasUserError: state.appHasUserError,
   userError: state.userError
 });
