@@ -26,14 +26,14 @@ else {
     outputPath = 'build/dev/client/js';
     filename = `${packageData.name}.${packageData.version}.js`;
     plugins = [
-        new webpack.DefinePlugin({
-            'process.env': {
-                'NODE_ENV': '"development"'
-            }
-        })
+       new webpack.DefinePlugin({
+        'process.env': {
+            NODE_ENV: '"development"',
+            FB_APP_ID: JSON.stringify(process.env.FB_APP_ID),
+        },
+    }),
     ];
 }
-
 
 module.exports = {
     entry: path.resolve(__dirname, packageData['main:client']),

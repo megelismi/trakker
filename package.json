@@ -85,6 +85,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "dotenv": "^4.0.0",
+    "env-cmd": "^5.1.0",
     "express": "^4.14.0",
     "history": "^4.6.1",
     "https": "^1.0.0",

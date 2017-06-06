@@ -42,13 +42,19 @@ export const appSignUp = user => dispatch => {
     .then(res => {
       if (!res.ok) {
         return res.json()
-        .then(error => dispatch(postResults.errorFromServer(error.message)));
-      }
-        return res.json()
-        .then(currentUser => {
-          Cookies.set('savori_token', currentUser.accessToken);
-          dispatch(postResults.appLoginSuccess(currentUser));
+        .then(error => {
+          if (_.has(error, 'displayMessage')) {
+            dispatch(postResults.displayErrorToUser(error.displayMessage));
+          } else {
+            dispatch(postResults.errorFromServer(error));
+          }
         });
+      }
+      return res.json()
+      .then(currentUser => {
+        Cookies.set('savori_token', currentUser.accessToken);
+        dispatch(postResults.appLoginSuccess(currentUser));
+      });
     });
   };
 

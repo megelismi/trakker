@@ -13,7 +13,7 @@ export const allFormFieldsFilledIn = request => {
 };
 
  const passwordMeetsRequirements = password => {
-  const symbol = /[!@#$%^&*-_=+-{}\\?.()]/;
+  const symbol = /[$-/:-?{-~!"^_`\[\]]/;
   const digit = /\d+/g;
 
   if (password.length < 6) {

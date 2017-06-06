@@ -6,6 +6,13 @@ import * as postResults from '../actions/postResults';
 
 class FacebookLogin extends Component {
 
+  constructor() {
+    super();
+    this.state = {
+      fbAppId: process.env.FB_APP_Id
+    };
+  }
+
   handleFbResponse(user) {
     this.props.dispatch(postRequests.fbLogin(user))
     .then(() => {
@@ -18,6 +25,7 @@ class FacebookLogin extends Component {
   }
 
   render() {
+
     return (
       <FacebookProvider appId="1382077371899696">
         <Login

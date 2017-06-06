@@ -48,6 +48,12 @@ const initialState = (state = {
         currentUser: null
       });
 
+    case getResults.PURGE_USER_DISPLAY_ERROR:
+      return Object.assign({}, state, {
+        appHasUserError: false,
+        userError: null
+      });
+
     default:
       return state;
   }

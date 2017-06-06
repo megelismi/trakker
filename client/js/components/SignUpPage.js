@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FacebookLogin from './FacebookLogin';
+import * as getResults from '../actions/getResults';
 import * as postRequests from '../actions/postRequests';
 import * as postResults from '../actions/postResults';
 
 class SignUpBox extends Component {
+
+  componentWillMount() {
+    this.props.dispatch(getResults.purgeUserDisplayError());
+  }
 
   handleFbResponse(user) {
     this.props.dispatch(postRequests.fbLogin(user));

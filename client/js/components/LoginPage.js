@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FacebookLogin from './FacebookLogin';
+import * as getResults from '../actions/getResults';
 import * as postRequests from '../actions/postRequests';
 
 class LoginPage extends Component {
+
+  componentWillMount() {
+    this.props.dispatch(getResults.purgeUserDisplayError());
+  }
 
   sendLoginInfo(e) {
     e.preventDefault();

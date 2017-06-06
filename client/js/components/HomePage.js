@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-class HomePagePicture extends Component {
+class HomePage extends Component {
 
   render() {
     return (
@@ -14,4 +14,4 @@ class HomePagePicture extends Component {
   }
 }
 
-export default HomePagePicture;
+export default HomePage;
