@@ -1,6 +1,6 @@
 # Flight Trakker
 
-Code challenge for Savori app
+Code challenge for Savori
 
 ## Getting started
 
