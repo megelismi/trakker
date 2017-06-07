@@ -27,23 +27,21 @@ export const allFormFieldsFilledIn = request => {
 };
 
   /**
-   * Ensures password meets the requirements: 1 symbol, 1 digit, 6 characters
+   * Ensures password meets the requirements: 1 digit, 6 characters
    *
    * @param {String}
    * @returns bool
    */
 
  const passwordMeetsRequirements = password => {
-  const symbol = /[$-/:-?{-~!"^_`\[\]]/;
   const digit = /\d+/g;
 
   if (password.length < 6) {
     return false;
   } else if (!password.match(digit)) {
     return false;
-  } else if (!password.match(symbol)) {
-    return false;
   }
+
   return true;
 };
 
