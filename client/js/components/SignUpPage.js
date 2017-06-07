@@ -39,7 +39,7 @@ class SignUpBox extends Component {
   render() {
     return (
       <div className="app-content-outer-wrapper">
-        <div className="app-content-container">
+        <div className="sign-up-content-container app-content-container">
           <h2 className="app-content-header">Sign Up</h2>
           <FacebookLogin history={this.props.history} />
           <p className="email-option">or sign up with email</p>
