@@ -19,6 +19,7 @@ class NavbarComponent extends Component {
     if (this.props.currentUser) {
       rightNavLinks = (
         <Nav pullRight>
+          <NavItem eventKey={1} onClick={() => { this.props.history.push('/flights'); }}>Track My Flights</NavItem>
           <NavItem eventKey={1} onClick={this.logout.bind(this)}>Logout</NavItem>
         </Nav>
       );
