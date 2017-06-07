@@ -8,6 +8,7 @@ import { Strategy } from 'passport-http-bearer';
 import bcrypt from 'bcryptjs';
 import uuidV1 from 'uuid/v1';
 import shortid from 'shortid';
+import _ from 'underscore';
 import User from './models/users';
 import FlightFetcher from './handlers/flightFetcher';
 import * as userValidity from './handlers/userValidity';
@@ -49,7 +50,6 @@ app.get('/flights/:flightNumber/:flightDate', passport.authenticate('bearer', { 
   flightDetails.getFlightInfo((err, flightInfo) => {
     if (err) {
       console.log(err);
-      console.log('sent server error');
       return res.status(404).json({ displayMessage: 'Information for that flight not found.' });
     }
     return res.status(200).json(flightInfo);
@@ -149,6 +149,13 @@ app.post('/signup', jsonParser, (req, res) => {
 
 		//make sure email is not already in the db
     if (existingUser.length) {
+      if (!_.has(existingUser[0], 'password')) {
+        return res.status(409)
+       .json({ displayMessage:
+        'This account was registered with Facebook. Please use the Facebook login option.'
+        });
+      }
+
       return res.status(409)
        .json({ displayMessage: 'That email address is already on file. Try logging in.' });
     }
