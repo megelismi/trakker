@@ -3,7 +3,7 @@
   left: 0;
   right: 0;
   margin: auto;
-  top: 510px;
+  top: 490px;
   width: 400px;
   text-align: center;
   p {
@@ -13,7 +13,7 @@
 
 .flight-directions-header {
   padding: 0 30px;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .flight-header {
@@ -30,6 +30,7 @@
 
   .flight-details-response-container {
     width: 300px;
+    top: 460px;
     p {
       font-size: 12px;
     }
@@ -37,6 +38,7 @@
 
   .flight-directions-header {
     font-size: 11px;
+    padding: 0;
   }
 
 }
@@ -45,10 +47,12 @@
 
   .flight-details-response-container {
     width: 250px;
+    top: 460px;
   }
 
   .flight-directions-header {
     font-size: 11px;
+    padding: 0;
   }
 
 }
