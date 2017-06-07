@@ -16,8 +16,8 @@ export const findUserFromCookie = accessToken => dispatch => fetch(`/find/cookie
     dispatch(postResults.errorFromServer(err));
   });
 
-export const getFlightDetails = (flightNumber, flightDate, accessToken) =>
-dispatch => fetch(`/flights/${flightNumber}/${flightDate}`, {
+export const getFlightDetails = (flightNumber, flightDate, departureAirport, accessToken) =>
+dispatch => fetch(`/flights/${flightNumber}/${flightDate}/${departureAirport}`, {
   method: 'get',
     headers: {
       Authorization: `Bearer ${accessToken}`

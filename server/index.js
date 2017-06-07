@@ -43,15 +43,16 @@ passport.use(new Strategy(
   }
 ));
 
-app.get('/flights/:flightNumber/:flightDate', passport.authenticate('bearer', { session: false }),
+app.get('/flights/:flightNumber/:flightDate/:departureAirport', passport.authenticate('bearer', { session: false }),
   (req, res) => {
-  const { flightNumber, flightDate } = req.params;
-  const flightDetails = new FlightFetcher(flightNumber, flightDate);
+  const { flightNumber, flightDate, departureAirport } = req.params;
+  const flightDetails = new FlightFetcher(flightNumber, flightDate, departureAirport);
   flightDetails.getFlightInfo((err, flightInfo) => {
     if (err) {
       console.log(err);
       return res.status(404).json({ displayMessage: 'Information for that flight not found.' });
     }
+    console.log('flightInfo', flightInfo);
     return res.status(200).json(flightInfo);
   });
 });

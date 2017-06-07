@@ -44,7 +44,8 @@ class FlightsPage extends Component {
       );
       this.props.dispatch(
         getRequests.getFlightDetails(
-          this.flightNumber.value.trim(), flightDate.trim(), accessToken
+          this.flightNumber.value.trim(), flightDate.trim(),
+          this.departureAirport.value.trim(), accessToken
         )
       );
     }
@@ -70,17 +71,27 @@ class FlightsPage extends Component {
         <div className="app-content-container">
         <h2 className="app-content-header flight-header">Track Your Flight</h2>
         <h4 className="flight-directions-header">
-          Enter your flight number and departure date below.
+          Enter your flight number, departure airport code, and departure date below.
         </h4>
          <form className="flight-info-form" onSubmit={this.sendFlightInfo.bind(this)}>
             <input
               className="app-input"
               type="text"
-              name="flight_number"
+              name="flight-number"
               placeholder="Flight number"
               ref={element => {
                 this.flightNumber = element;
                 return this.flightNumber;
+              }}
+            />
+            <input
+              className="app-input"
+              type="text"
+              name="departure-airport"
+              placeholder="Departure airport"
+              ref={element => {
+                this.departureAirport = element;
+                return this.departureAirport;
               }}
             />
           <DatePicker
@@ -90,7 +101,9 @@ class FlightsPage extends Component {
           <input className="submit-button" type="submit" value="Get Flight Details" />
           </form>
           <div className="input-req">
-            Flight numbers must include airline code (i.e., SKW5891).
+            Flight numbers must include airline code (i.e., SKW5891).<br />
+            Don't know you departure aiport code?
+            Look it up <a href="https://www.world-airport-codes.com/" target="_blank">here.</a>
           </div>
           <span className="user-error">
             {this.state.flightNumberError || this.props.appHasUserError ?

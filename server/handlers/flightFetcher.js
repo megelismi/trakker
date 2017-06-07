@@ -13,9 +13,10 @@ class FlightFetcher {
    * @param {String} flightDate
    */
 
-  constructor(flightNumber, flightDate) {
+  constructor(flightNumber, flightDate, departureAirport) {
     this._flightNumber = flightNumber.toLowerCase();
     this._flightDate = flightDate.toLowerCase();
+    this._departureAirport = departureAirport.toUpperCase();
     this._appId = process.env.FLIGHT_STATS_APP_ID;
     this._appKey = process.env.FLIGHT_STATS_APP_KEY;
   }
@@ -51,27 +52,39 @@ class FlightFetcher {
       throw new Error('Flight Fetcher missing flight number.');
     }
 
-  const options = {
-    hostname: 'api.flightstats.com',
-    method: 'GET',
-    path: this._urlPath()
-  };
+    const options = {
+      hostname: 'api.flightstats.com',
+      method: 'GET',
+      path: this._urlPath()
+    };
 
-  const req = https.request(options, (response) => {
-    let data = '';
-    response.setEncoding('utf8');
-    response.on('data', (chunk) => {
-      data += chunk;
-    });
+    const req = https.request(options, (response) => {
+      let data = '';
+      response.setEncoding('utf8');
+      response.on('data', (chunk) => {
+        data += chunk;
+      });
 
     response.on('end', () => {
-      const formattedResponse = this._formatResponse(JSON.parse(data));
+      const flightData = JSON.parse(data);
+      let index = -1;
+      let formattedResponse = null;
+
+      if (_.has(flightData, 'flightStatuses') && flightData.flightStatuses.length !== 0) {
+        index = this._getAppropriateFlightIndex(flightData);
+      }
+
+      if (index !== -1) {
+        formattedResponse = this._formatResponse(flightData, index);
+      }
+
       if (formattedResponse) {
         callback(null, formattedResponse);
       } else {
         callback(new Error('Information for that flight number was not found.'), null);
       }
     });
+
   });
 
   req.on('error', (error) => {
@@ -81,6 +94,25 @@ class FlightFetcher {
 
   req.end();
 }
+
+ /**
+   * Finds the index of the appropriate flight
+   *
+   * @returns {Number}
+   * @private
+   */
+
+  _getAppropriateFlightIndex(reply) {
+    let index = null;
+    const flightArray = reply.flightStatuses;
+    for (let i = 0; i < flightArray.length; i++) {
+      if (flightArray[i].departureAirportFsCode === this._departureAirport) {
+        index = i;
+        break;
+      }
+    }
+    return index === null ? -1 : index;
+  }
 
   /**
    * Builds the path for https library.
@@ -167,6 +199,7 @@ class FlightFetcher {
         return airports[i].name;
       }
     }
+    return null;
   }
 
   /**
@@ -177,21 +210,26 @@ class FlightFetcher {
    * @private
    */
 
-  _formatResponse(reply) {
-    if (!_.has(reply, 'flightStatuses') ||
-        reply.flightStatuses.length === 0 ||
-        !_.has(reply.flightStatuses[0], 'arrivalDate') ||
-        !_.has(reply.flightStatuses[0].arrivalDate, 'dateLocal') ||
-        !_.has(reply.flightStatuses[0], 'arrivalAirportFsCode') ||
-        !_.has(reply.appendix.airports[1], 'name')) {
+  _formatResponse(reply, index) {
+    if (!_.has(reply.flightStatuses[index], 'arrivalDate') ||
+        !_.has(reply.flightStatuses[index].arrivalDate, 'dateLocal') ||
+        !_.has(reply.flightStatuses[index], 'arrivalAirportFsCode') ||
+        (reply.appendix.airports.length === 0)) {
         return null;
     }
 
     const formattedDate =
-    moment(reply.flightStatuses[0].arrivalDate.dateLocal).format('MMMM Do YYYY, h:mm:ss a');
+    moment(reply.flightStatuses[index].arrivalDate.dateLocal).format('MMMM Do YYYY, h:mm:ss a');
 
     const arrivalAirport =
-    this._getArrivalAirport(reply.appendix.airports, reply.flightStatuses[0].arrivalAirportFsCode);
+    this._getArrivalAirport(
+      reply.appendix.airports,
+      reply.flightStatuses[index].arrivalAirportFsCode
+    );
+
+    if (arrivalAirport === null) {
+      return null;
+    }
 
     return {
       date: formattedDate,
