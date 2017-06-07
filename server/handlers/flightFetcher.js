@@ -65,7 +65,6 @@ class FlightFetcher {
     });
 
     response.on('end', () => {
-      console.log(JSON.parse(data).flightStatuses[0].operationalTimes);
       const formattedResponse = this._formatResponse(JSON.parse(data));
       if (formattedResponse) {
         callback(null, formattedResponse);
