@@ -1,6 +1,6 @@
 # Flight Trakker
 
-Code challenge for Savori
+An application for tracking when and where a flight will land. 
 
 ## Getting started
 
