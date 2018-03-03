@@ -236,7 +236,6 @@ class FlightFetcher {
       airport: arrivalAirport
     };
   }
-
 }
 
 module.exports = FlightFetcher;
